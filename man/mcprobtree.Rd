@@ -4,8 +4,8 @@
 Creates a Stochastic mcnode Object using a Probability Tree
 }
 \description{
-This function builds a \samp{mcnode} as a mixture of \samp{mcstoc}
-functions or \samp{mcnode} objects.
+This function builds an \samp{mcnode} as a mixture \samp{mcnode}
+objects.
 }
 \usage{
 mcprobtree(mcswitch, mcvalues, type=c("V", "U", "VU", "0"), nsv=ndvar(),
@@ -16,6 +16,7 @@ mcprobtree(mcswitch, mcvalues, type=c("V", "U", "VU", "0"), nsv=ndvar(),
 conc1 <- mcstoc(rnorm, type="VU", mean=10, sd=2)
 conc2 <- mcstoc(runif, type="VU", min=-6, max=-5)
 conc3 <- mcdata(0, type="VU")
+
 ## Randomly in the cells 
 whichdist <- mcstoc(rempiricalD, type="VU", values=1:3, prob= c(.75, .20, .05)) 
 mcprobtree(whichdist, list("1"=conc1, "2"=conc2, "3"=conc3), type="VU")
@@ -31,15 +32,22 @@ mcprobtree(whichdist, list("1"=conc1, "2"=conc2, "3"=conc3), type="VU")
 whichdist <- mcstoc(rempiricalD, type="V", values=1:3, prob= c(.75, .20, .05)) 
 mcprobtree(whichdist, list("1"=conc1, "2"=conc2, "3"=conc3), type="VU")
 
+## The elements of mcvalues may be of various (but compatible) type
+conc1 <- mcstoc(rnorm, type="V", mean=10, sd=2)
+conc2 <- mcstoc(runif, type="U", min=-6, max=-5)
+conc3 <- mcdata(0, type="0")
+whichdist <- mcstoc(rempiricalD, type="VU", values=1:3, prob= c(.75, .20, .05))
+mcprobtree(whichdist, list("1"=conc1, "2"=conc2, "3"=conc3), type="VU")
+
+
 }
 \arguments{
-\item{mcswitch}{A vector of probabilities/weights or a \samp{mcnode}
-including the \samp{mcstoc} functions/mcnodes to pick.}
-\item{mcvalues}{A named list of \samp{mcnode}, \samp{mcdata}
+\item{mcswitch}{A vector of probabilities/weights or an
+\samp{mcnode}.}
+\item{mcvalues}{A named list of \samp{mcnode}s, \samp{mcdata}
 functions or \samp{mcstoc} functions, or a combination of those
-objects. Each element should lead to an \samp{mcnode} of type
-\samp{type} and of dimension \samp{c(nsv x nsu x 1)} or \samp{c(nsv x
-nsu x nvariates)} }
+objects. Each element should be or lead to a compatible \samp{mcnode}
+(see Details). }
 \item{type}{The type of \samp{mcnode} to be built. By default, a
 \samp{"V"} node. see \code{\link{mcnode}} for details.}
 \item{nsv}{The number of simulations in the variability dimension of
@@ -53,27 +61,33 @@ nodes. see \code{\link{outm}}.}
 the \samp{seed} is unchanged.}
 }
 \details{
-\samp{mcswitch} may be: 
+\samp{mcswitch} may be either: 
 
 \itemize{
-\item a vector of length the length of \samp{mcvalues}. They need not
-sum to one, but they should be nonnegative and not all zero. In that
-case, each elements of \samp{mcvalues} will appear in the final
-sample a random number of times as specified by this vector. (Note
-that there is a random process).
-\item a \samp{"0"} mcnode to build any type of node.
-\item a \samp{"V"} mcnode to build a \samp{"V"} or a \samp{"VU"}
-mcnode.
-\item a \samp{"U"} mcnode to build a \samp{"U"} or a \samp{"VU"}
-mcnode.
-\item a \samp{"VU"} mcnode to build a \samp{"VU"}.}
-The elements in \samp{mcvalues} should be of same type and dimension
-as specified in \samp{type}, \samp{nsv}, \samp{nsu} and
-\samp{nvariates}. The name should correspond to the values in
-\samp{mcswitch}, specified as character (See Examples). These
-elements will be evaluated only if needed : if the corresponding
-value is not present in \samp{mcswitch}, the element will not be
-evaluated.
+\item a vector of weights. They need not sum to one, but they should
+be nonnegative and not all zero. The length of this vector should
+equal the number of elements in the list \samp{mcvalues}. Each
+elements of \samp{mcvalues} will appear in the final sample a random
+number of times with probability as specified by this vector.
+\item a \samp{"0 mcnode"} to build any type of node.
+\item a \samp{"V mcnode"} to build a \samp{"V mcnode"} or a \samp{"VU
+mcnode"}.
+\item a \samp{"U mcnode"} to build a \samp{"U mcnode"} or a \samp{"VU
+mcnode"}.
+\item a \samp{"VU mcnode"} to build a \samp{"VU mcnode"}.}
+Each elements of \samp{mcvalues} may be either: 
+
+\itemize{
+\item a \samp{"0 mcnode"} to build any type of node.
+\item a \samp{"V mcnode"} to build a \samp{"V mcnode"} or a \samp{"VU
+mcnode"}.
+\item a \samp{"U mcnode"} to build a \samp{"U mcnode"} or a \samp{"VU
+mcnode"}.
+\item a \samp{"VU mcnode"} to build a \samp{"VU mcnode"}.}
+Their name should correspond to the values in \samp{mcswitch},
+specified as character (See Examples). These elements will be
+evaluated only if needed : if the corresponding value is not present
+in \samp{mcswitch}, the element will not be evaluated.
 }
 \value{
 An \samp{mcnode} object.
