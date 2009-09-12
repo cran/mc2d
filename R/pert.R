@@ -46,7 +46,7 @@ dpert <- function(x,min=-1,mode=0,max=1,shape=4,log=FALSE)
 #--------------------------------------------
 {
 	mu <- (min+max+shape*mode)/(shape+2)
-	a1 <- ifelse(mu==mode,
+	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
@@ -65,7 +65,7 @@ ppert <- function(q,min=-1,mode=0,max=1,shape=4,lower.tail = TRUE, log.p = FALSE
 #--------------------------------------------
 {
 	mu <- (min+max+shape*mode)/(shape+2)
-	a1 <- ifelse(mu==mode,
+	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
@@ -88,7 +88,7 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
   if(log.p) p <- exp(p)
   if(!lower.tail) p <- 1-p
 	mu <- (min+max+shape*mode)/(shape+2)
-	a1 <- ifelse(mu==mode,
+	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
@@ -110,6 +110,6 @@ rpert <- function(n,min=-1,mode=0,max=1,shape=4)
 	oldw <- options(warn = -1)
 	r <- qpert(runif(n),min=min,mode=mode,max=max,shape=shape,lower.tail=TRUE,log.p=FALSE)
   options(warn = oldw$warn)
-	if(any(is.na(r))) warning("NaN in rrppert")
+	if(any(is.na(r))) warning("NaN in rpert")
   return(r)
 }

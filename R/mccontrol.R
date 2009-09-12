@@ -37,7 +37,6 @@ ndvar <- function(n)
   if(!missing(n)){
     if (n > 0) x$nsv <- ceiling(n)
         else stop("Invalid n")
-    x$nsv <- n
     assign("mc.control",x, envir=.BaseNamespaceEnv)}
   return(x$nsv)}
 
@@ -54,6 +53,5 @@ ndunc <- function(n)
   if(!missing(n)){
     if (n > 0) x$nsu <- ceiling(n)
         else stop("Invalid n")
-    x$nsu <- n
     assign("mc.control",x, envir=.BaseNamespaceEnv)}
   return(x$nsu)}

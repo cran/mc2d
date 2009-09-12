@@ -1,0 +1,18 @@
+=== mc2d ===
+
+Version 0.1-6
+=============
+
+
+BUG FIXES
+
+- Pert distribution: could bug when is.equal(mu,mode) while mu!=mode.
+- mcprobtree: allows now to use mcvalues with a type different of
+  the type of the ouptut
+
+
+Version 0.1-5
+=============
+
+
+- Initial release on CRAN.
