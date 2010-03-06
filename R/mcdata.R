@@ -172,7 +172,7 @@ mcdata <- function(data, type=c("V","U","VU","0"), nsv=ndvar(), nsu=ndunc(),nvar
 
   dimf <- switch(type,"V"=c(nsv,1,nvariates),"U"=c(1,nsu,nvariates),"VU"=c(nsv,nsu,nvariates),"0"=c(1,1,nvariates))
 
-  if(inherits(data,"mcnode") ){
+  if(inherits(data,"mcnode") ){             # data = mcnode
     typem <- attr(data,"type")
     dimd <- dim(data)
     err <- paste("The output node dimension is not compatible with the input node dimension. Should be of dim: ",paste(dimf,collapse=" "))
@@ -192,7 +192,7 @@ mcdata <- function(data, type=c("V","U","VU","0"), nsv=ndvar(), nsu=ndunc(),nvar
     else if(typem=="0") {
       data <- array(apply(data,3,rep,each=dimf[1]*dimf[2]),dim=dimf)}           # recycle on nvariates
   }
-  else {
+  else {                                    # data non mcnode
       if(!is.numeric(data) && !is.logical(data)) stop("data should be numeric or logical")
       if(is.vector(data)){
         l <- length(data)

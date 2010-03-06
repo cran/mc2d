@@ -7,7 +7,7 @@ Random Latin Hypercube Sampling
 Creates a Latin Hypercube Sample (LHS) of the specified distribution.
 }
 \usage{
-lhs(distr=runif, nsv, nsu, nvariates=1, ...)
+lhs(distr="runif", nsv=ndvar(), nsu=ndunc(), nvariates=1, ...)
 }
 \examples{
 ceiling(lhs(runif, nsu=10, nsv=10)*10)

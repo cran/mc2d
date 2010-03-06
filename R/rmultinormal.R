@@ -58,7 +58,7 @@ rmultinormal <- function(n, mean, sigma , method=c("eigen", "svd", "chol"))
 
   if(is.vector(sigma)) {                       # 'classic' rmvnorm to gain time
     if(length(sigma) != (nv^2)) stop("sigma should be a vector of length:",nv^2)
-    return(mean + rmvnorm(n,mean = rep(0, nv), sigma = matrix(sigma,ncol=nv), method=method))
+    return(mean + rmvnorm(n, mean = rep(0, nv), sigma = matrix(sigma,ncol=nv), method=method))
         }
 
 # else Sigma is a matrix
