@@ -228,9 +228,6 @@ rempiricalD <- function(n,values,prob=NULL)
 
   if(is.vector(prob)) prob <- matrix(prob,nrow=1)
 
-  if(any(apply(prob,1,is.na)) || any(apply(prob,1,function(x) x < 0)) || any(rowSums(prob)==0))
-    stop("Nas in prob, or sum(prob)=0 or negative values of prob")
-
   ncv <- ncol(values)
   ncp <- ncol(prob)
   if(ncv!=ncp) stop("Prob and values should be of same length or have the same number of columns.")
@@ -246,7 +243,7 @@ rempiricalD <- function(n,values,prob=NULL)
   n1 <- n %/% mnr
   n2 <- n%% mnr
   # To gain time, send sample on n1
-  res <- mapply(sample,x=values,prob=prob,MoreArgs=list(size=n1,replace=TRUE))
+  res <- mapply(sample, x=values, prob=prob, MoreArgs=list(size=n1,replace=TRUE))
   dim(res) <- c(n1,mnr)
   res <- t(res)
   dim(res) <- NULL

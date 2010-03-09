@@ -1,5 +1,29 @@
 === mc2d ===
 
+Version 0.1-7
+=============
+
+NEW FEATURES
+
+- The documentation is now a real vignette
+- mcratio, a function to measure variability and uncertainty
+- extractvar and addvar, two utilities for multivariate nodes
+
+IMPROVEMENTS
+
+- Ops.mcnode function is much more efficient and less memory consuming
+- great improvement for speed in mcstoc for multivariate distributions
+- plot.mc proposes to fill the enveloppes
+- empiricalD is (a little bit) more efficient
+
+BUG FIXES
+
+- lhs: could bug when sent without default distribution. Now, distr="runif" by default.
+- lhs: nsv = ndvar() and nsu = ndunc() by default
+- mcstoc: issue when rtrunc with linf or lsup as multivariate nodes: solved
+- rtrunc: issue for discrete distribution. It is now clear that rtrunc sample within (linf, lsup]. As a consequence, linf should be strictly lower than lsup
+- same issue in mcstoc
+
 Version 0.1-6
 =============
 

@@ -24,7 +24,7 @@ dmultinomial <- function (x, size = NULL, prob, log = FALSE)
 #p <- mcstoc(rdirichlet,"U",nvariates=3,alpha=c(4,10,20))
 #mcstoc(rmultinomial,"VU",nvariates=3,size=s, prob=p)
 #DETAILS
-#This function is the vectorized version of \code{\link{rmultinom}} and \code{\link{dmultinom}}.
+#These functions are the vectorized versions of \code{\link{rmultinom}} and \code{\link{dmultinom}}.
 #Recycling is permitted.
 #--------------------------------------------
 {

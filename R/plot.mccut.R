@@ -1,5 +1,5 @@
 #<<BEGIN>>
-plot.mccut <- function(x, stat = c("median","mean"), lim = c(0.025,0.975), griddim = NULL, xlab = names(x), ylab = "Fn(x)", main = "", draw=TRUE, ...)
+plot.mccut <- function(x, stat = c("median","mean"), lim = c(0.025, 0.25, 0.75, 0.975), griddim = NULL, xlab = names(x), ylab = "Fn(x)", main = "", draw=TRUE, ...)
 #ISALIAS plot.mc
 #--------------------------------------------
 {

@@ -1,5 +1,5 @@
 #<<BEGIN>>
-lhs <- function(distr=runif,nsv,nsu,nvariates=1,...)
+lhs <- function(distr="runif",nsv=ndvar(),nsu=ndunc(),nvariates=1,...)
 #TITLE Random Latin Hypercube Sampling
 #DESCRIPTION
 # Creates a Latin Hypercube Sample (LHS) of the specified distribution.
@@ -29,6 +29,8 @@ lhs <- function(distr=runif,nsv,nsu,nvariates=1,...)
 #CREATED 08-01-25
 #--------------------------------------------
 {
+    nsv
+    nsu
     if (length(nsv) != 1 | length(nsu) != 1) stop("nsv and nsu may not be vectors")
     if (any(is.na(c(nsv, nsu)))) stop("nsv and nsu may not be NA or NaN")
     if (any(is.infinite(c(nsv, nsu)))) stop("nsv and nsu may not be infinite")

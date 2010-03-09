@@ -12,6 +12,13 @@ Draws a Tornado chart as provided by \samp{tornado}.
 	  ylab="", ...)
 \method{plot}{tornadounc}(x, which=1, stat="median", name=NULL, xlab="method", ylab="", ...)
 }
+\examples{
+data(ec)
+x <- evalmcmod(ec$modEC2, nsv=100, nsu=100, seed=666)
+tor <- tornado(x, 7)
+plot(tor)
+
+}
 \arguments{
 \item{x}{A \code{\link{tornado}} object or a \code{\link{tornadounc}}
 object.}

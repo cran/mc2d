@@ -1,5 +1,5 @@
 #<<BEGIN>>
-plot.mc <- function(x, prec=0.01, stat = c("median","mean"), lim = c(0.025,0.975), na.rm=TRUE, griddim = NULL, xlab = NULL, ylab = "Fn(x)", main = "", draw = TRUE, ...)
+plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.25, 0.75, 0.975), na.rm=TRUE, griddim = NULL, xlab = NULL, ylab = "Fn(x)", main = "", draw = TRUE, paint=TRUE,...)
 #TITLE Plots Results of a Monte Carlo Simulation
 #DESCRIPTION
 # Plots the empirical cumulative distribution function of a \samp{mcnode} or a \samp{mc} object ("0" and "V" nodes) or the
@@ -8,9 +8,8 @@ plot.mc <- function(x, prec=0.01, stat = c("median","mean"), lim = c(0.025,0.975
 #INPUTS
 # {x}<<a \samp{mcnode} or a \samp{mc} objects>>
 #[INPUTS]
-#{prec}<<the precision of the plot. 0.01 will
-#provide an ecdf from the 0.00, 0.01, .02,  ..., 1.00 quantiles, 0.001 will provide
-#a 0.000, 0.001, 0.002, ..., 1.000 quantiles,... >>
+#{prec}<<the precision of the plot. 0.001 will
+#provide an ecdf from the 0.000, 0.001, .002,  ..., 1.000 quantiles.>>
 #{stat}<<the function used for estimates (2D \samp{mc} or \samp{mcnode}). By default the median.>>
 #{lim}<<a vector of numbers (between 0 and 1) indicating the enveloppe (2D \samp{mc} or \samp{mcnode}) . Maybe \samp{NULL} or empty.>>
 #{na.rm}<<Should NA values be discarded>>
@@ -19,13 +18,14 @@ plot.mc <- function(x, prec=0.01, stat = c("median","mean"), lim = c(0.025,0.975
 #{ylab}<<vector of labels for the y-axis.>>
 #{main}<<vector of main titles of the graph.>>
 #{draw}<<Should the plot be drawn?>>
-#{\dots}<<further arguments to be passed to \samp{plot.ecdf}.>>
+#{paint}<<Should the enveloppes be filled?>>
+#{\dots}<<further arguments to be passed to \samp{plot.stepfun}.>>
 #DETAILS
 #\samp{plot.mcnode} is a user-friendly function that send the \samp{mcnode} to \samp{plot.mc}.</>
 #For \samp{"VU"} and \samp{"U"} \samp{mcnode}s, quantiles are calculated using \code{\link{quantile.mc}}
 #within each of the \samp{nsu} simulations (i.e. by columns of each \samp{mcnode}). The medians (but may be
-#the means using \samp{stat="mean"}) calculated from the \samp{nsu} values are plotted. The 0.025 and 0.975 quantiles (default values
-#of \samp{lim}) of these quantiles are used as the enveloppe.
+#the means using \samp{stat="mean"}) calculated from the \samp{nsu} values are plotted. The 0.025 and 0.975 quantiles, 
+#and the 0.25 and 0.75 quantiles (default values of \samp{lim}) of these quantiles are used as the enveloppe.
 #REFERENCE
 #Cullen AC and Frey HC (1999) Probabilistic techniques in exposure assessment. Plenum Press, USA, pp. 81-155. 
 #VALUE
@@ -38,7 +38,7 @@ plot.mc <- function(x, prec=0.01, stat = c("median","mean"), lim = c(0.025,0.975
 #plot(total)
 #AUTHOR Regis Pouillot
 #CREATED 07-08-01
-#REVISED 07-08-01
+#REVISED 10-02-10
 #--------------------------------------------
 #
 {
@@ -80,9 +80,32 @@ plot.mc <- function(x, prec=0.01, stat = c("median","mean"), lim = c(0.025,0.975
       xlima <- range(y,na.rm=TRUE)
   		if(xlima[1]==xlima[2]) xlima <- xlima + c(-0.5,0.5)
       i <- get("i",envir=env)
-      plot.ecdf(y[1,],main=main[i],xlim=xlima,ylab = ylab[i], verticals = TRUE, do.points = FALSE, xlab=xlab[i],...)
+      x50 <- plot.stepfun(y[1,], main=main[i], xlim=xlima, ylab = ylab[i], verticals = TRUE, do.points = FALSE, xlab=xlab[i], lwd=3, ...)
+      abline(h = c(0, 1), col =  "gray70", lty = 3)
+
+      # Points for the polygon used to fill the enveloppe
+      if(paint){
+        ti.l <- x50$t[-length(x50$t)]
+        ti.r <- x50$t[-1L]
+        y50 <- x50$y
+        thex50 <- rev(as.vector(rbind(ti.l,ti.r)))
+        they50 <- rev(as.vector(rbind(y50, y50)))
+      }
+      
       if(nr > 1){
-        for(j in 2:nr) plot.ecdf(y[j,],verticals=TRUE, do.points=FALSE, add=  TRUE, lty=2,...)
+        rankplot <- 1 + order(-abs(lim-0.5))      # in order to draw over in the good order
+        for(j in rankplot) {
+          xp <- plot.stepfun(y[j,], verticals=TRUE, do.points=FALSE, add= TRUE, lty=3 ,col="gray30",...)
+          if(paint){
+            ti.lp <- xp$t[-length(xp$t)]
+            ti.rp <- xp$t[-1L]
+            yp <- xp$y
+            thexp <- as.vector(rbind(ti.lp,ti.rp))
+            theyp <- as.vector(rbind(yp, yp))
+            color <- grey(abs(lim[j-1]-.5)+.25)
+            polygon(c(thexp,thex50), c(theyp,they50), col= color)
+          }
+        }
       }
     assign("i",i+1,envir=env) }
     

@@ -119,20 +119,21 @@ the \samp{seed} is unchanged.}
 \item{linf}{If truncated: lower limit. May be a scalar, an array or a
 mcnode.}
 \item{lsup}{If truncated: upper limit. May be a scalar, an array or a
-mcnode.}
+mcnode. \samp{lsup} should be pairwise strictly greater then
+\samp{linf}}
 \item{lhs}{Should a Random Latin Hypercube Sampling be used? see
 \code{\link{lhs}}}
 }
 \details{
-Note that arguments after \dots must be matched exactly.
+Note that arguments after \dots must match exactly.
 
 Any function who accepts vectors/matrix as arguments may be used
 (notably: all current random generator of the \samp{stats} package).
-The arguments may be sent classically but it is strongly recommended
+The arguments may be sent classically but it is STRONGLY recommended
 to use consistant \samp{mcnode}s if arguments should be recycled,
-since a complex recycling is handled for \samp{mcnode} and not for
-vectors. The rules for compliance of \samp{mcnode} arguments are as
-following (see below for special functions): 
+since a very complex recycling is handled for \samp{mcnode} and not
+for vectors. The rules for compliance of \samp{mcnode} arguments are
+as following (see below for special functions): 
 
 \describe{
 \item{type="V"}{accepts \samp{"0" mcnode} of dimension \samp{(1 x 1 x
@@ -171,7 +172,7 @@ and \samp{prob} vectors and/or multivariate nodes and return a a
 univariate or a multivariate node. See examples.
 
 \samp{trunc=TRUE} is valid for univariates distributions only. The
-distribution will be truncated on \samp{[linf, lsup]}. The function
+distribution will be truncated on \samp{(linf, lsup]}. The function
 'func' should have a 'q' form (with first argument 'p') and a 'p'
 form, as all current random generator of the \samp{stats} library.
 Example : 'rnorm' (has a 'qnorm' and a 'pnorm' form), 'rbeta',

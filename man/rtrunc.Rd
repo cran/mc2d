@@ -5,7 +5,8 @@ Random Truncated Distributions
 }
 \description{
 Provides samples from classical \R distributions and \samp{mc2d}
-specific distributions truncated between \samp{linf} and \samp{lsup}.
+specific distributions truncated between \samp{linf} (excluded) and
+\samp{lsup} (included).
 }
 \usage{
 rtrunc(distr=runif, n, linf=-Inf, lsup=Inf, ...)
@@ -13,6 +14,8 @@ rtrunc(distr=runif, n, linf=-Inf, lsup=Inf, ...)
 \examples{
 rtrunc("rnorm", n=10, linf=0)
 range(rtrunc(rnorm, n=1000, linf=3, lsup=5, sd=10))
+## Discrete distributions
+range(rtrunc(rpois, 1000, linf=2, lsup=4, lambda=1))
 }
 \arguments{
 \item{distr}{A function providing random data or its name as
@@ -24,7 +27,8 @@ argument 'p') and a 'pdistr' form (with argument 'q'). Example :
  .
 
 \item{linf}{A vector of lower bounds.}
-\item{lsup}{A vector of upper bounds.}
+\item{lsup}{A vector of upper bounds, with \samp{lsup < linf}
+(strictly).}
 \item{\dots}{All arguments to be passed to \samp{pdistr} and
 \samp{qdistr}.}
 }
@@ -37,7 +41,8 @@ using \samp{qdistr}.
 
 All distributions (but sample) implemented in the stats library could
 be used. The arguments in \dots should be named. Do not use 'log' or
-'log.p' or 'lower.tail'.
+'log.p' or 'lower.tail'. For discrete dictribution, rtrunc sample
+within \samp{(linf, lsup]}. See example.
 }
 \value{
 A vector of \samp{n} values.

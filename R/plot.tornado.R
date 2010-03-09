@@ -26,7 +26,12 @@ plot.tornado <- function(x,which=1,name=NULL,stat=c("median","mean"),xlab="metho
 #EXAMPLE
 #AUTHOR Regis Pouillot
 #CREATED 07-08-01
-#REVISED 07-08-01
+#EXAMPLE
+#data(ec)
+#x <- evalmcmod(ec$modEC2, nsv=100, nsu=100, seed=666)
+#tor <- tornado(x,7)
+#plot(tor)
+#REVISED 10-02-10
 #--------------------------------------------
 #
 {
@@ -45,15 +50,19 @@ plot.tornado <- function(x,which=1,name=NULL,stat=c("median","mean"),xlab="metho
   stat <- ifelse(stat=="mean" && nr!=1, 2 ,1)
   val <- val[,order(abs(val[stat,])),drop=FALSE]
 	if(nr==1){
-		segments(0,1:nc,val,1:nc,lwd=4)
+		segments(0,1:nc,val,1:nc,lwd=2)
+    points(val,1:nc, pch=4, lwd=2)
     }
 
   else {
-    points(val[stat,],1:nc)
+		segments(0,1:nc,val[stat,],1:nc,lwd=2,col="grey")
+    points(val[stat,],1:nc, pch=4, lwd=2)
     if(nr>3){
         val <- apply(val[3:nr,],2,range)
-        segments(val[1,],1:nc,val[2,],1:nc,lwd=4)
-        }
+        segments(val[1,],1:nc,val[2,],1:nc,lwd=2)
+        points(val[1,],1:nc, pch="|", lwd=2)
+        points(val[2,],1:nc, pch="|", lwd=2)
+            }
     }
 
 		abline(v=0)

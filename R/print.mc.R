@@ -26,7 +26,6 @@ print.mc <- function(x, digits=3,...)
   dimm <- lapply(x,dim)
   nom <- names(x)
 
-
   sortie <- function(obj,x=1,out,typ){
     dimm <- dim(obj)
     rangem <- range(obj,na.rm=TRUE)
@@ -50,7 +49,8 @@ print.mc <- function(x, digits=3,...)
   res <- data.frame(NULL)
   for(i in seq_along(x)){
     nvariates <- dimm[[i]][3]
-      if(outm[[i]][1]=="each" || outm[[i]][1]=="none"){
+      if(outm[[i]][1]=="none") next
+      if(outm[[i]][1]=="each"){
         for(j in 1:nvariates)
           res <- rbind(res,sortie(x[[i]][,,j,drop=FALSE],j,outm[[i]]))
       } else {
@@ -60,9 +60,12 @@ print.mc <- function(x, digits=3,...)
           }
   }
   }
+
+ if(is.null(unlist(res))) {
+  warning("Try to print a multivariate node with outm = none", call.=FALSE)
+  res <- NULL}
   
  invisible(print(res,digits=digits,...))
- 
 }
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

@@ -38,7 +38,8 @@ internally normalized to sum 1.}
 \item{log}{Logical; if TRUE, log probabilities are computed.}
 }
 \details{
-This function is the vectorized version of \code{\link{rmultinom}}
-and \code{\link{dmultinom}}. Recycling is permitted.
+These functions are the vectorized versions of
+\code{\link{rmultinom}} and \code{\link{dmultinom}}. Recycling is
+permitted.
 }
 \keyword{distribution}
