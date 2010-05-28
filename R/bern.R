@@ -25,7 +25,7 @@ dbern <- function(x,prob=.5,log=FALSE)
 #rbern(n=3,prob=c(0,.5,1))
 #SEE ALSO
 #\code{\link{Binomial}}
-#AUTHOR Regis Pouillot
+
 #CREATED 08-02-20
 #--------------------------------------------
 {

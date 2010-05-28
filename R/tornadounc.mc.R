@@ -52,7 +52,7 @@ tornadounc.mc <- function(mc,output = length(mc), quant=c(0.5,0.75,0.975),use = 
 #tornadounc(total,8,use="complete.obs")
 #(y <- tornadounc(total,10,use="complete.obs"))
 #plot(y,1,1)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------

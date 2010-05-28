@@ -45,7 +45,7 @@ tornado <- function(mc,output = length(mc),use = "all.obs",	method=c("spearman",
 #tornado(total,8,"complete.obs","spearman",c(0.025,0.975))
 #(y <- tornado(total,10,"complete.obs","spearman",c(0.025,0.975)))
 #plot(y)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------

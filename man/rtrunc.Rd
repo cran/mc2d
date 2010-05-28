@@ -47,9 +47,6 @@ within \samp{(linf, lsup]}. See example.
 \value{
 A vector of \samp{n} values.
 }
-\author{
-Regis Pouillot
-}
 \note{
 The inversion of the quantile function leads to time consuming
 functions for some distributions.

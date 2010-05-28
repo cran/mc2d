@@ -41,9 +41,6 @@ object.
 \value{
 An object of class \samp{mc}.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcnode}}, the basic element of a \samp{mc} object.
 

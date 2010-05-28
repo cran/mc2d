@@ -41,7 +41,7 @@ dpert <- function(x,min=-1,mode=0,max=1,shape=4,log=FALSE)
 #VALUE
 #\samp{dpert} gives the density, \samp{ppert} gives the distribution function,
 #\samp{qpert} gives the quantile function, and \samp{rpert} generates random deviates.
-#AUTHOR Regis Pouillot
+
 #CREATED 08-02-20
 #--------------------------------------------
 {

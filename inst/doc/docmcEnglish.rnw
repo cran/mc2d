@@ -17,7 +17,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 % sweave commands for vignette
-%\VignetteIndexEntry{Tools for Two-Dimensional Monte-Carlo Simulations}
+%\VignetteIndexEntry{A Manual for mc2d: Tools for Two-Dimensional Monte-Carlo Simulations}
 %\VignettePackage{mc2d}
 %\VignetteDepends{mvtnorm,fitdistrplus}
 
@@ -114,7 +114,7 @@ specify an empirical or parametric distribution representing variability.
 This distribution is conditional upon other parameters to which is
 associated the uncertainty. As an example, one should be able
 to specify a relationship such as
-\[ R\left|a,b\right.\sim N\left(a,b\right) \]
+\[ r\left|a,b\right.\sim N\left(a,b\right) \]
 where the specified normal distribution represents variability in
 $r$ conditional upon parameters $a$ and $b$. Hyperdistributions,
 such as
@@ -172,6 +172,10 @@ a fictitious example.
 O157:H7 infection linked to the consumption of frozen ground
 beef in <3 year old children.}
 
+\emph{Warning}: the data are fictitous and the model is over-simplified 
+to better illustrate the use of the package: 
+the results will not and should not be interpreted.
+
 The model is built assuming that:
 \begin{itemize}
 \item in a given batch of ground beef, \emph{E. coli} O157:H7
@@ -216,15 +220,15 @@ n & \sim & Poisson\left(c\times i\times s\right)\\
 r & = & 0.001\\
 P & = & 1-\left(1-r\right)^{n}
 \end{eqnarray*}
-
 where $emp\left(X,P\right)$ is an empirical
 distribution wherein each value $X_{i}$ is associated with a probability
 $P_{i}$.We will use a classical one
-dimensional Monte-Carlo simulation, with 1,000 iterations. Using the
+dimensional Monte-Carlo simulation, with 1,001 iterations. Using the
 \texttt{mc2d} package, the model may be written as:
 
 <<sh0, echo=false>>=
 set.seed(666)
+options("width"=100,"digits"=3)
 @
 
 %true
@@ -245,7 +249,7 @@ summary(EC1)
 
 The \texttt{print} output provides for each \texttt{node}: 
 the \texttt{mode} of the variable (numeric or logical), 
-\texttt{nsv}, the size of the variability dimension (here, 1000), 
+\texttt{nsv}, the size of the variability dimension (here, 1001), 
 \texttt{nsu}, the size of the uncertainty dimension (here, 1 since no uncertainty is considered),
 \texttt{nva}, the number of variate (here, all the variables are univariate),
 some statistics such as the \texttt{min}imum, the \texttt{mean}, 
@@ -255,7 +259,7 @@ the number of missing data \texttt{Nas},
 the \texttt{type} of the variable (\texttt{0} for fix,
 \texttt{V} for variable, \texttt{U} for uncertain or \texttt{VU} for variable
 and uncertain (here, all nodes are variable parameters only)
-and, finally, the level of output \texttt{outm}, for multivariate parameters.
+and, finally, the level of output \texttt{outm} (used for multivariate parameters).
 The \texttt{summary} output proovides additionnal statistics.
 
 This One-Dimensional Monte-Carlo simulation provides an estimate of
@@ -290,14 +294,14 @@ while the distributions of $i$ and $s$ represent variability. $n$,
 which is a function of $c$, $i$ and $s,$ will become both variable
 \emph{and} uncertain.
 
-We will use a two-dimensional Monte-Carlo simulation, with 1,000 iterations
-in the variability dimension and 100 iterations in the uncertainty
+We will use a two-dimensional Monte-Carlo simulation, with 1,001 iterations
+in the variability dimension and 101 iterations in the uncertainty
 dimension. Using the \texttt{mc2d} package, the model may
 be written as:
 
 %true
 <<sh2, eval=true, echo=true>>=
-ndunc(100)
+ndunc(101)
 conc <- mcstoc(rnorm,type="U",mean=10,sd=2)
 cook <- mcstoc(rempiricalD, type="V",values=c(1,1/5,1/50), prob=c(0.027,0.373,0.600))
 serving <- mcstoc(rgamma,type="V",shape=3.93,rate=0.0806)
@@ -319,8 +323,8 @@ uncertainty (\texttt{type=U}),
 The summary provides estimates of the variability distributions (in
 rows) but with a measure of their uncertainty, linked to the uncertainty
 around \texttt{conc} and \texttt{r}. The estimate of the mean risk
-is now uncertain. The median of the 100 simulations leads to a best
-estimateof 0.0445, with a 95\% credible
+is now uncertain. The median of the 101 simulations leads to a best
+estimate of 0.0445, with a 95\% credible
 interval of {[}0.191, 0.0730{]}.
 
 
@@ -360,7 +364,7 @@ An \texttt{mcnode} object is the basic element of an \texttt{mc} object.
 An \texttt{mcnode}  is associated to one variable while an \texttt{mc} is 
 a set of associated variables.
 
-An \texttt{mcnode} is an array of dimension \texttt{nsv} * \texttt{nsu} * \texttt{nvariates}
+An \texttt{mcnode} is an array of dimension \texttt{nsv x nsu x nvariates}
 where $nsv$ is the dimension of variability, $nsu$ is the dimension
 of uncertainty and $nvariates$ is the number of variates of the \texttt{mcnode}%
 \footnote{In this section, we will only consider univariate \texttt{mcnode}s,
@@ -716,16 +720,16 @@ in QRA. In \texttt{mc2d}, a Spearman rank correlation structure for
 This function uses the method of Iman \& Conover to generate correlated
 samples \cite{IMAN-CONOVER-1982}. Assume that a study suggests that
 people who consume rare ground beef also consume larger serving sizes.
-We could specify this relation using:
+We could specify this relation using\footnote{Note that the resulting correlation (around 0.4) is obviously an approximation
+to the desired value of 0.5, because a discrete distribution (\texttt{cook}:
+3 categories) is correlated with a continuous distribution (\texttt{serving}).}:
 
 %true
 <<sh5bis, echo=true, eval=true>>=
 cornode(cook,serving,target=0.5,result=TRUE) 
 @
 
-\footnote{Note that the resulting correlation (around 0.4) is obviously an approximation
-to the desired value of 0.5, because a discrete distribution (\texttt{cook}:
-3 categories) is correlated with a continuous distribution (\texttt{serving}).} 
+
 
 It is possible to create such correlations between V nodes,
 between  U nodes, between VU nodes, or between one
@@ -922,13 +926,14 @@ The \texttt{plot} function provides a graph of the cumulative empirical distribu
 function of the estimate (mean or median) of the quantiles. 
 
 \noindent \begin{flushleft}
-\texttt{plot (x, prec = 0.01, stat = c(median,
-mean), lim = c(0.025,0.25, 0.75, 0.975), na.rm =
-TRUE, griddim = NULL, xlab = NULL, ylab = Fn(x),
-main = , draw = TRUE, ...)}
+\texttt{plot(x, prec = 0.001, stat = c("median", "mean"), lim = c(0.025, 
+    0.25, 0.75, 0.975), na.rm = TRUE, griddim = NULL, xlab = NULL, 
+    ylab = "Fn(x)", main = "", draw = TRUE, paint = TRUE, ...)}
 \par\end{flushleft}
 
 For our example, see Figure \ref{fig:Function-plot}, a default graph.
+The 0.25 and 0.75 quantiles (default values of \texttt{lim}) in the uncertainty dimension
+of the quantiles (variability dimension) are used as the enveloppe.
 
 %false
 <<sh17, echo=true, eval=false, fig=false>>=
@@ -1014,6 +1019,28 @@ nodes) and some statistics (mean, median and, here, the $99^{th}$percentile)
 calculated on the variability dimension (type \texttt{VU} nodes) of some output statistics
 .
 
+\subsubsection{The \texttt{mcratio} function}
+
+The \texttt{mcratio} function provides measures of variability, uncertainty, 
+and both combined propose by \cite{OZKAYNAK-2009} for an \texttt{mc} or an \texttt{mcnode} object.
+Given: 
+\begin{description}
+\item[A] the median of uncertainty for the median of variability; 
+\item[B] the median of uncertainty for the 97.5th percentile of variability; 
+\item[C] the 97.5th percentile of uncertainty for the median percentile of variability; 
+\item[D] the 97.5th percentile of uncertainty for the 97.5th percentile of variability. 
+\end{description}
+The following ratio are estimated: 
+\begin{itemize}
+\item Variability Ratio: B / A 
+\item Uncertainty Ratio: C / A 
+\item Overall Uncertainty Ratio: D / A
+\end{itemize}
+
+%true
+<<sh19d, echo=true, eval=true, fig=false>>=
+mcratio(risk)
+@
 
 \subsection{Other Functions and \texttt{mc} Objects}
 
@@ -1405,5 +1432,60 @@ http://riskassessment.r-forge.r-project.org/
 
 \bibliographystyle{plain}
 \bibliography{docmcEnglish}
+
+\end{document}
+<- mcstoc(rbeta, type="U", shape1=2.65, shape2=3.64)
+w <- mcstoc(rbeta, type="V", shape1=2.6, shape2=3.4) 
+@
+
+Given that $O_{o}=2$ oocysts are observed in 100 l of water, the
+expected number of oocysts in the sample is \texttt{l}: 
+
+<<Crypto11, echo=true, figure=false>>=
+Oo <- 2
+l <- (Oo + mcstoc(rnbinom, type="U", size=Oo+1, prob=Rr))/100
+@
+
+The expected number of oocysts drunk by the individuals is \texttt{Or}
+and the risk ($\times10000$) is estimated by:
+
+<<Crypto12, echo=true, figure=false>>=
+Or <- l * v * w
+P <- 10000 * (1-exp(-r*Or))
+summary(P)
+@ 
+
+This result can be compared (roughly since there is some differences
+in the modelsvariability) to the results shown in Table 2 in \cite{POUILLOT-2004}. 
+
+Improvement: the results for $O_{o}=\left\{ 0,1,2,5,10,20,50,100,1000\right\} $
+can be obtained in one step using: 
+
+<<Crypto13, echo=true, eval=false, figure=false>>=
+Oo <- mcdata(c(0,1,2,5,10,20,50,100,1000),type="0",nvariates=9) 
+@ 
+
+
+\section*{As a Conclusion}
+
+We think and hope that {}``\texttt{mc2d}'' could help risk assessors
+to constuct and analyse their models, and that it may help in developing
+\textquotedbl{}two-dimensional\textquotedbl{} simulations. Nevertheless,
+\textquotedbl{}\texttt{mc2d}\textquotedbl{} is currently under development:
+
+\noindent \begin{center}
+\emph{CHECK YOUR MODEL CAREFULLY AND EXAMINE RESULTS TO DETECT BUGS}
+\par\end{center}
+
+and, if you would like to improve it, join us at
+
+\noindent \begin{center}
+\emph{\url{http://riskassessment.r-forge.r-project.org/}}
+\par\end{center}
+
+Please refer any comments or bugs to \url{rpouillot@yahoo.fr}.
+
+\bibliographystyle{plain}
+\bibliography{Bibtex}
 
 \end{document}

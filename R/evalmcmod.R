@@ -24,7 +24,7 @@ evalmcmod <- function(expr, nsv = ndvar(), nsu = ndunc(), seed = NULL)
 #data(ec)
 #ec$modEC1
 #evalmcmod(ec$modEC1,nsv=100,nsu=100,seed=666)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------

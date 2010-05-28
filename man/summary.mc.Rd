@@ -54,9 +54,6 @@ if it is a function (e.g. "mean"), the function is applied on the
 \value{
 a list.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcnode}} for mcnode objects, \code{\link{mc}} for mc
 objects, \code{\link{mccut}} for mccut objects,

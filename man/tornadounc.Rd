@@ -91,9 +91,6 @@ the statistics of outputs.}
 \item{method}{the method used}
 \item{use}{the \samp{use} parameter}
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{cor}}.
 

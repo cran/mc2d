@@ -34,7 +34,7 @@ dempiricalC <- function(x, min, max, values, prob=rep(1,length(values)), log=FAL
 #par(mfrow=c(1,2))
 #curve(dempiricalC(x, min=0, max=6, values, prob), from=-1, to=7, n=1001)
 #curve(pempiricalC(x, min=0, max=6, values, prob), from=-1, to=7, n=1001)
-#AUTHOR Regis Pouillot
+
 #CREATED 08-02-20
 #--------------------------------------------
 {
@@ -57,12 +57,13 @@ dempiricalC <- function(x, min, max, values, prob=rep(1,length(values)), log=FAL
   d <- rep(NA,length(x))
   d[x > max | x < min] <- 0
   lesquel <- which(!is.na(x) & x <= max & x >= min)
-  quel <- sapply(x[lesquel],function(y) min(which(y < val)))
+  quel <- findInterval(x[lesquel],val)+1
   d[lesquel] <- prob[quel-1]+(x[lesquel]-val[quel-1])/(val[quel]-val[quel-1])*(prob[quel]-prob[quel-1])
 
+  d <- d/Integ
   if(log) d <- log(d)
 	if(any(is.na(d))) warning("NaN in dempiricalC")
-  return(d/Integ)}
+  return(d)}
 
 #<<BEGIN>>
 pempiricalC <- function(q, min, max, values, prob=rep(1,length(values)),lower.tail = TRUE, log.p = FALSE)                 
@@ -72,7 +73,7 @@ pempiricalC <- function(q, min, max, values, prob=rep(1,length(values)),lower.ta
   if(min > max | min > min(values) | max < max(values) | !is.finite(min) | !is.finite(max)) stop("Error in min or max")
 
   val2 <- sort(unique(values))
-  probi   <- dempiricalC(val2,min=min,max=max,values=values,prob=prob,log=FALSE)
+  probi   <- dempiricalC(val2, min=min, max=max, values=values, prob=prob, log=FALSE)
 
   h <- c(val2,max)-c(min,val2)
   a <- c(0,probi)
@@ -87,7 +88,7 @@ pempiricalC <- function(q, min, max, values, prob=rep(1,length(values)),lower.ta
   p[q >= max] <- 1
   p[q <= min] <- 0
   lesquel <- which(!is.na(q) & q < max & q > min)
-  quel <- sapply(q[lesquel],function(y) min(which(y < val)))
+  quel <- findInterval(q[lesquel], val) + 1
 
   p[lesquel] <- probcum[quel-1]+(q[lesquel]-val[quel-1])*
                 (probi[quel-1]+((probi[quel]-probi[quel-1])*(q[lesquel]-val[quel-1])/(2*(val[quel]-val[quel-1]))))
@@ -126,13 +127,13 @@ qempiricalC <- function(p, min, max, values, prob=rep(1,length(values)), lower.t
 
   lesquel <- which(!is.na(p) & p < 1 & p >= 0)
   
-  quel <- sapply(p[lesquel],function(y) min(which(y < probcum)))
+  quel <- findInterval(p[lesquel],probcum)+1
 
-  a <- (probi[quel]-probi[quel-1])/(val[quel]-val[quel-1])/2
-  b <- probi[quel-1]
-  c <- probcum[quel-1]-p[lesquel]
+  a <- (probi[quel]-probi[quel-1])/(val[quel]-val[quel-1])/2	# (c-a)/(2b)
+  b <- probi[quel-1]											# a
+  c <- probcum[quel-1]-p[lesquel]								# -S
   d <- b^2-4*a*c
-  q[lesquel] <- (-b+sqrt(d))/2/a  + val[quel-1]
+  q[lesquel] <- ifelse(a==0, -c/b + val[quel-1], (-b+sqrt(d))/2/a  + val[quel-1])
   
 	if(any(is.na(q))) warning("NaN in qempiricalC")
   return(q)}

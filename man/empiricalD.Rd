@@ -71,9 +71,6 @@ size=n, replace=TRUE, prob=prob)}.
 distribution function, \samp{qempiricalD} gives the quantile function
 and \samp{rempiricalD} generates random deviates.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{sample}}. \code{\link{empiricalC}}.
 }

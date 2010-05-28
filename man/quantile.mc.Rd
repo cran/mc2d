@@ -34,9 +34,6 @@ of these quantiles.
 \value{
 A list of quantiles.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{plot.mc}}, \code{\link{quantile}}.
 }

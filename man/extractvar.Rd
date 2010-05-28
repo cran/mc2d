@@ -35,9 +35,6 @@ one of the first element.
 \value{
 The new built \samp{mcnode}.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcnode}} for \samp{mcnode} objects.
 }

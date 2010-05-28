@@ -32,7 +32,7 @@ dbetagen <- function(x,shape1,shape2,min=0,max=1,ncp=0,log=FALSE)
 #VALUE
 #\samp{dbetagen} gives the density, \samp{pbetagen} gives the distribution function,
 #\samp{qbetagen} gives the quantile function, and \samp{rbetagen} generates random deviates.
-#AUTHOR Regis Pouillot
+
 #CREATED 08-04-16
 #--------------------------------------------
 {

@@ -31,7 +31,7 @@ mcapply <- function(x, margin=c("all","var","unc","variates"), fun, ...)
 #mcapply(xVUM,"all",sum)
 #mcapply(xVUM,"variates",sum)
 #mcapply(total,"all",exp)
-#AUTHOR Regis Pouillot
+
 #CREATED 08-03-17
 #--------------------------------------------
 {

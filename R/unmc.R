@@ -18,7 +18,7 @@ unmc <- function(x, drop=TRUE)
 #unmc(total$xV, drop=TRUE)
 ### An array
 #unmc(total$xV, drop=FALSE)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------

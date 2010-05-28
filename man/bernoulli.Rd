@@ -46,9 +46,6 @@ Thus, 1 is for success, 0 is for failure.
 function, \samp{qbern} gives the quantile function, and \samp{rbern}
 generates random deviates.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{Binomial}}
 }

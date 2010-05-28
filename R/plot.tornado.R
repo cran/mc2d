@@ -24,7 +24,7 @@ plot.tornado <- function(x,which=1,name=NULL,stat=c("median","mean"),xlab="metho
 #SEE ALSO
 #\code{\link{tornado}}
 #EXAMPLE
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #EXAMPLE
 #data(ec)
@@ -51,12 +51,12 @@ plot.tornado <- function(x,which=1,name=NULL,stat=c("median","mean"),xlab="metho
   val <- val[,order(abs(val[stat,])),drop=FALSE]
 	if(nr==1){
 		segments(0,1:nc,val,1:nc,lwd=2)
-    points(val,1:nc, pch=4, lwd=2)
+    points(val,1:nc, pch="|", lwd=2)
     }
 
   else {
 		segments(0,1:nc,val[stat,],1:nc,lwd=2,col="grey")
-    points(val[stat,],1:nc, pch=4, lwd=2)
+    points(val[stat,],1:nc, pch="|", lwd=2)
     if(nr>3){
         val <- apply(val[3:nr,],2,range)
         segments(val[1,],1:nc,val[2,],1:nc,lwd=2)

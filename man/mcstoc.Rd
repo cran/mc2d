@@ -186,9 +186,6 @@ multivariates distributions.
 \value{
 An \samp{mcnode} object.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcnode}} for a description of \samp{mcnode} object,
 methods and functions on \samp{mcnode} objects.

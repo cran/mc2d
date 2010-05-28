@@ -34,9 +34,18 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
 #\code{\link{ecdf}}, \code{\link{plot}}, \code{\link{quantile.mc}}
 #EXAMPLE
 #data(total)
+
 #plot(xVUM3)
+### only one enveloppe corresponding to quantiles 0.025 and 0.975
+#plot(xVUM3,lim=c(0.025,0.975)) 
+### only one enveloppe not painted
+#plot(xVUM3,lim=c(0.025,0.975),paint=FALSE) 
+
+#def.par <- par(no.readonly = TRUE)
+#par(mar=c(4,4,1,1))
 #plot(total)
-#AUTHOR Regis Pouillot
+#par(def.par)
+
 #CREATED 07-08-01
 #REVISED 10-02-10
 #--------------------------------------------
@@ -64,8 +73,8 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
 	 ylab <- rep(ylab,n)
 
   if(is.null(griddim)) griddim <- beau(n)
-  if(prod(griddim) < n) op <- par(mfrow=griddim,ask=TRUE)
-     else op <- par(mfrow=griddim )
+  if(prod(griddim) < n) op <- par(mfrow=griddim,ask=TRUE,mar=c(5,4,.2,.2))
+     else op <- par(mfrow=griddim, mar=c(5,4,.2,.2))
 
   try({   #to restore par in case of error
 

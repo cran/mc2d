@@ -1,5 +1,21 @@
 === mc2d ===
 
+Version 0.1-8
+=============
+
+NEW FEATURES
+
+- pmin.mcnode and pmax.mcnode 
+- a second vignette
+
+IMPROVEMENTS
+
+- error message in mc when one argument was neither an mc nor an mcnode
+
+BUG FIXES
+
+- rempiricalC and qempiricalC lead to errors 
+
 Version 0.1-7
 =============
 

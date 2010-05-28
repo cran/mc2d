@@ -43,7 +43,4 @@ simulations in the uncertainty dimension in the 2D simulations.
 The current value, AFTER modification if \samp{n} is present (!=
 \samp{options}).
 }
-\author{
-Regis Pouillot
-}
 \keyword{misc}

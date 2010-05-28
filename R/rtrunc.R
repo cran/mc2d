@@ -31,7 +31,7 @@ rtrunc <- function(distr=runif, n, linf=-Inf, lsup=Inf,...)
 #range(rtrunc(rnorm, n=1000, linf=3, lsup=5, sd=10))
 ### Discrete distributions
 #range(rtrunc(rpois,1000,linf=2,lsup=4,lambda=1))
-#AUTHOR Regis Pouillot
+
 #CREATED 08-02-20
 #REVISED 10-02-10
 #--------------------------------------------

@@ -27,7 +27,4 @@ if x is an \samp{mc} object: a list of arrays. If \samp{drop=TRUE}, a
 list of vectors, matrixes and arrays. if x is an \samp{mcnode}
 object: an array. If \samp{drop=TRUE}, a vector, matrix or array.
 }
-\author{
-Regis Pouillot
-}
 \keyword{manip}

@@ -37,7 +37,7 @@ mc <- function(..., name=NULL, devname=FALSE)
 #z <- x * y
 #(m <- mc(x,y,z,name=c('n1','n2','n3')))
 #mc(m,x,devname=TRUE)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------
@@ -72,8 +72,11 @@ mc <- function(..., name=NULL, devname=FALSE)
   rv <- vector(mode="list",length=0)
   nom <- character(0)
   
+  if(!all(sapply(args,inherits,"mcnode")|sapply(args,inherits,"mc"))) stop("arguments should be mc or mcnode objects")
+  
   for(i in 1:length(args)){   # Should find better                                                  # loop to help memory
-    if(is.list(args[[i]])){
+    
+	if(is.list(args[[i]])){
       rv <- c(rv,args[[i]])
       if(devname) nom <- c(nom,paste(nameobj[i],names(args[[i]]),sep="."))
       else nom <- c(nom,names(args[[i]]))}

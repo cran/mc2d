@@ -150,7 +150,7 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
 #
 #ndvar(Oldnvar)
 #ndunc(Oldnunc)
-#AUTHOR Regis Pouillot
+
 #CREATED 08-01-25
 #--------------------------------------------
 {

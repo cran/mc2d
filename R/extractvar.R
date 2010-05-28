@@ -23,7 +23,7 @@ extractvar <- function(x, which = 1)
 #y <- extractvar(x, c(1,3)) 
 #y
 #addvar(x,y)
-#AUTHOR Regis Pouillot
+
 #CREATED 19-02-10
 #--------------------------------------------
 {

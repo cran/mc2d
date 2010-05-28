@@ -198,9 +198,6 @@ is useful when your model is tested since it is much more quicker.
 \value{
 An \samp{mcnode} object.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcstoc}} to build a stochastic \samp{mcnode} object,
 \code{\link{mcprobtree}} to build a stochastic node fro a probability

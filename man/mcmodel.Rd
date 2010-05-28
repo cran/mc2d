@@ -38,9 +38,6 @@ the dimension of uncertainty should be done via \samp{ndunc()} or
 \value{
 an \R expression, with class \samp{mcmodel}
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{expression}}.
 

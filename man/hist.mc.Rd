@@ -31,9 +31,6 @@ histograms. May be recycled.}
 \item{\dots}{Other arguments to be passed to all calls of
 \samp{hist}.}
 }
-\author{
-Regis Pouillot
-}
 \note{
 For Two-dimensional \samp{mc}, the histogram is based on all data
 (variability and uncertainty) pooled together.

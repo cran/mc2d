@@ -20,7 +20,7 @@ dtriang <- function(x,min=-1,mode=0,max=1,log=FALSE)
 #VALUE
 #\samp{dtriang} gives the density, \samp{ptriang} gives the distribution function,
 #\samp{qtriang} gives the quantile function, and \samp{rtriang} generates random deviates.
-#AUTHOR Regis Pouillot
+
 #EXAMPLE
 #curve(dtriang(x,min=3,mode=5,max=10), from = 2, to = 11)
 #CREATED 08-02-20

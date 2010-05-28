@@ -16,7 +16,7 @@ print.mc <- function(x, digits=3,...)
 # \code{\link{mcnode}} for \samp{mcnode} objects.
 # \code{\link{mc}} for \samp{mc} objects.
 #EXAMPLE
-#AUTHOR Regis Pouillot
+
 #CREATED 08-01-25
 #REVISED 08-01-25
 #--------------------------------------------
