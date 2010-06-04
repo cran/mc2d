@@ -22,7 +22,7 @@ quantile.mc <- function(x, probs = seq(0, 1, 0.01), lim=c(0.025,0.975), na.rm=TR
 #data(total)
 #quantile(total$xVUM3)
 #quantile(total)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------

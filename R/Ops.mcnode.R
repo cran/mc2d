@@ -89,7 +89,7 @@ Ops.mcnode <- function(e1,e2)
 #xVM - xV
 #xUM - xU
 #xVUM - xU
-#AUTHOR Regis Pouillot
+
 #CREATED 08-01-25
 #--------------------------------------------
 {

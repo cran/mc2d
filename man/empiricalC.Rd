@@ -61,9 +61,6 @@ varying parameters.
 distribution function, \samp{qempiricalC} gives the quantile function
 and \samp{rempiricalC} generates random deviates.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{empiricalD}}
 }

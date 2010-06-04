@@ -56,9 +56,6 @@ after correct parametrisation.
 distribution function, \samp{qbetagen} gives the quantile function,
 and \samp{rbetagen} generates random deviates.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{Beta}}
 }

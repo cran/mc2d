@@ -161,7 +161,7 @@ mcdata <- function(data, type=c("V","U","VU","0"), nsv=ndvar(), nsu=ndunc(),nvar
 #
 #ndvar(oldvar)
 #ndunc(oldunc)
-#AUTHOR Regis Pouillot
+
 #CREATED 08-01-25
 #--------------------------------------------
 {

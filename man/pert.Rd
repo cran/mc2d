@@ -68,9 +68,6 @@ generates random deviates.
 Vose D. Risk Analysis - A Quantitative Guide (John Wiley \& Sons,
 2000).
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{Beta}}
 }

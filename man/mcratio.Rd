@@ -55,7 +55,4 @@ coupled model uncertainties in source-to-dose modeling of human
 exposures to ambient air pollution: A PM2.5 case study", Atmospheric
 environment, Volume 43, Issue 9, March 2009, Pages 1641-1649.
 }
-\author{
-Regis Pouillot
-}
 \keyword{distribution}

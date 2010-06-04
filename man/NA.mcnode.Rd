@@ -31,9 +31,6 @@ is.na(x)
 \value{
 A logical \samp{mcnode} object.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{is.finite}}, \code{\link{NA}}
 }

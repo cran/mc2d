@@ -111,9 +111,6 @@ is done if a \samp{(nsu x nsv x nvariates)} node is combined with a
 \value{
 The results as a \samp{mcnode} object.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcdata}}, \code{\link{mcstoc}}
 }

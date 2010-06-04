@@ -16,7 +16,7 @@ is.na.mcnode <- function(x)
 #x <- log(mcstoc(rnorm,nsv=1001))
 #x
 #is.na(x)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-25-11
 #REVISED 07-08-01
 #--------------------------------------------

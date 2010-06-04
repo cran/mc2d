@@ -42,7 +42,4 @@ are \samp{P[X <= x]}, otherwise, \samp{P[X > x]}.}
 distribution function, \samp{qtriang} gives the quantile function,
 and \samp{rtriang} generates random deviates.
 }
-\author{
-Regis Pouillot
-}
 \keyword{distribution}

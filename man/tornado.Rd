@@ -80,9 +80,6 @@ objects containing the following objects:
 \item{method}{the method used}
 \item{use}{the use parameter}
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{cor}}.
 

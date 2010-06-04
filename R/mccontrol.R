@@ -25,7 +25,7 @@ ndvar <- function(n)
 #mcstoc(runif,type="VU")
 #ndvar(oldvar)
 #ndunc(oldunc)
-#AUTHOR Regis Pouillot
+
 #CREATED 08-01-25
 #--------------------------------------------
 {

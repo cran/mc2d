@@ -18,7 +18,7 @@ hist.mc <- function(x, griddim = NULL, xlab = names(x),ylab = "Frequency", main 
 #data(total)
 #hist(xVUM3)
 #hist(total)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------
@@ -43,8 +43,8 @@ hist.mc <- function(x, griddim = NULL, xlab = names(x),ylab = "Frequency", main 
 
 
   	if(is.null(griddim)) griddim <- beau(n)
-  	if(prod(griddim) < n) op <- par(mfrow=griddim,ask=TRUE)
-    else op <- par(mfrow=griddim)
+  	if(prod(griddim) < n) op <- par(mfrow=griddim,ask=TRUE,mar=c(5,4,.2,.2))
+    else op <- par(mfrow=griddim,mar=c(5,4,.2,.2))
 	
 	try({  #to restore par in case of error
 

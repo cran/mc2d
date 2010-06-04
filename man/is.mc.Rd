@@ -34,7 +34,4 @@ if the class \samp{"mcnode"} is affected to the object.
 \value{
 \samp{TRUE} or \samp{FALSE}
 }
-\author{
-Regis Pouillot
-}
 \keyword{utilities}

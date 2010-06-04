@@ -92,9 +92,6 @@ in \samp{mcswitch}, the element will not be evaluated.
 \value{
 An \samp{mcnode} object.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcdata}}, \code{\link{mcstoc}}, \code{\link{switch}}.
 }

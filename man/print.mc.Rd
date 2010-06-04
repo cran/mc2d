@@ -20,9 +20,6 @@ Print a description of the structure of the \samp{mc} or the
 \value{
 An invisible data frame.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcnode}} for \samp{mcnode} objects. \code{\link{mc}} for
 \samp{mc} objects.

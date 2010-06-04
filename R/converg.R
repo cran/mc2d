@@ -33,7 +33,7 @@ converg <- function(x, node=length(x), margin=c("var","unc"), nvariates=1, iter=
 #data(total)
 #converg(xVU,margin="var")
 #converg(xVU,margin="unc")
-#AUTHOR Regis Pouillot
+
 #CREATED 08-04-01
 #REVISED 08-04-01
 #--------------------------------------------

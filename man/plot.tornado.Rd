@@ -43,9 +43,6 @@ uncertainty around this estimate.
 \value{
 NULL
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{tornado}}
 }

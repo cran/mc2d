@@ -24,9 +24,6 @@ the type.}
 
  \samp{NULL} if none of this element is found.
 }
-\author{
-Regis Pouillot
-}
 \note{
 This function does not test if the object is correct. See
 \code{\link{is.mcnode}}.

@@ -18,7 +18,7 @@ dimmcnode <- function(x)
 #data(total)
 #dimmcnode(xVUM2)
 #dimmc(total)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------
@@ -57,7 +57,7 @@ typemcnode <- function(x,index=FALSE)
 #EXAMPLE
 #data(total)
 #typemcnode(total$xVUM2)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------
@@ -91,7 +91,7 @@ is.mc <- function(x)
 #is.mcnode(xVU)
 #is.mcnode(total)
 #is.mc(total)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------

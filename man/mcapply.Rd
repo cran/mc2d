@@ -38,9 +38,6 @@ If \samp{fun} returns a function of length \samp{n} or if
 dimension of \samp{x}. In other cases, the type of \samp{mcnode} is
 changed.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{apply}}, \code{\link{mc}}, \code{\link{mcnode}}.
 }

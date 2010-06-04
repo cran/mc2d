@@ -33,9 +33,6 @@ The model is evaluated. The intermediate variables used to build the
 \value{
 The results of the evaluation. It should be a \samp{mc} object.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{mcmodel}}
 

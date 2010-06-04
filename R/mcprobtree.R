@@ -73,7 +73,7 @@ mcprobtree <- function(mcswitch, mcvalues, type=c("V","U","VU","0"), nsv=ndvar()
 #SEE ALSO
 #\code{\link{mcdata}}, \code{\link{mcstoc}}, \code{\link{switch}}.
 #EXAMPLE
-#AUTHOR Regis Pouillot
+
 #CREATED 08-06-1
 #--------------------------------------------
 {

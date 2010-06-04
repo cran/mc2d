@@ -31,7 +31,7 @@ mcmodel <- function(x, is.expr=FALSE)
 #   mc(conc,cook,serving,expo,dose,risk)
 #   })
 #evalmcmod(modEC1,nsv=100,nsu=100)
-#AUTHOR Regis Pouillot
+
 #CREATED 07-08-01
 #REVISED 07-08-01
 #--------------------------------------------

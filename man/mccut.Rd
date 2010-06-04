@@ -138,9 +138,6 @@ evaluated within the third block. Each list consists of all the
 median, the mean, the \samp{lim} quantiles estimated on each
 statistics on the uncertainty dimension.
 }
-\author{
-Regis Pouillot
-}
 \seealso{
 \code{\link{evalmcmod}}
 }

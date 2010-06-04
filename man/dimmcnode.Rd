@@ -29,9 +29,6 @@ A vector of three scalars: the dimension of variability (1 for
 for \samp{"0"} and \samp{"V" mcnode}) and the number of variates (the
 maximal number of variates for an \samp{mc} object.
 }
-\author{
-Regis Pouillot
-}
 \note{
 This function does not test if the object is correctly built. See
 \code{\link{is.mcnode}} and \code{\link{is.mc}} .

@@ -46,7 +46,7 @@ dempiricalD <- function(x,values,prob=NULL,log=FALSE)
 ### the first x apply to the first row : p = 0.2
 ### the second x to the second one: p = 0
 #dempiricalD(c(1,1),values)
-#AUTHOR Regis Pouillot
+
 #CREATED 08-06-15
 #--------------------------------------------
 {

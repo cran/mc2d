@@ -58,9 +58,6 @@ a \samp{mccut} object), one graph are provided for each of the mean,
 median and \samp{probs} quantiles calculated in the variability
 dimension.
 }
-\author{
-Regis Pouillot
-}
 \note{
 This function may be used on a \samp{mccut} object only if a
 \samp{summary.mc} function was used in the third block of the
