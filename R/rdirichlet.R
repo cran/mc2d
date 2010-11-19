@@ -31,7 +31,8 @@ ddirichlet <- function (x, alpha)
 #unclass(x)
 #--------------------------------------------
 {
-    dirichlet1 <- function(x, alpha) {
+    if(length(x) == 0) return(x)
+	dirichlet1 <- function(x, alpha) {
         logD <- sum(lgamma(alpha)) - lgamma(sum(alpha))
         s <- sum((alpha - 1) * log(x))
         exp(sum(s) - logD)
@@ -60,6 +61,7 @@ rdirichlet <- function (n, alpha)
 #ISALIAS ddirichlet
 #--------------------------------------------
 {
+  if(length(n) == 0) return(n)
   if(length(n) > 1) n <- length(n)
   if(is.vector(alpha)) alpha <- t(alpha)
   l <- dim(alpha)[2]

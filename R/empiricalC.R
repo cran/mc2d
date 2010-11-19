@@ -39,7 +39,7 @@ dempiricalC <- function(x, min, max, values, prob=rep(1,length(values)), log=FAL
 #--------------------------------------------
 {
   
-  
+  if(length(x) == 0) return(x)
   
   if(min > max | min > min(values) | max < max(values) | !is.finite(min) | !is.finite(max)) stop("Error in min or max")
 
@@ -70,7 +70,9 @@ pempiricalC <- function(q, min, max, values, prob=rep(1,length(values)),lower.ta
 #ISALIAS dempiricalC
 #--------------------------------------------
 {
-  if(min > max | min > min(values) | max < max(values) | !is.finite(min) | !is.finite(max)) stop("Error in min or max")
+   if(length(q) == 0) return(q)
+   
+   if(min > max | min > min(values) | max < max(values) | !is.finite(min) | !is.finite(max)) stop("Error in min or max")
 
   val2 <- sort(unique(values))
   probi   <- dempiricalC(val2, min=min, max=max, values=values, prob=prob, log=FALSE)
@@ -104,6 +106,8 @@ qempiricalC <- function(p, min, max, values, prob=rep(1,length(values)), lower.t
 #ISALIAS dempiricalC
 #--------------------------------------------
 {
+  if(length(p) == 0) return(p)
+  
   if(log.p) p <- exp(p)
   if(!lower.tail) p <- 1-p
   if(min > max | min > min(values) | max < max(values) | !is.finite(min) | !is.finite(max)) stop("Error in min or max")
@@ -143,6 +147,7 @@ rempiricalC <- function(n, min, max, values, prob=rep(1,length(values)))
 #ISALIAS dempiricalC
 #--------------------------------------------
 { 
+  if(length(n) == 0) return(n)
   if(length(n) > 1) n <- length(n)
   return(qempiricalC(runif(n),min=min,max=max,values=values,prob=prob))
 

@@ -1,14 +1,18 @@
 citHeader("To cite fitdistrplus in publications use:")
 
 
-citEntry(entry="Manual",
-         title = "The mc2d package",
-         author = "R. Pouillot, M.-L. Delignette-Muller, D.L. Kelly and J.-B. Denis",
-     year = 2010,
-         note = "R package version 0.1-7",
-
+citEntry(entry="article",
+         title = "Evaluating variability and uncertainty in microbial qunatitative risk assessment using two R packages",
+         author = "R. Pouillot, M.-L. Delignette-Muller",
+		 journal = "International Journal of Food Microbiology",
+		 volume = 142,
+		 number = 3,
+		 pages = "330-40", 
+		 year = 2010,
+         
          textVersion =
-     paste( "R. Pouillot, M.-L. Delignette-Muller, D.L. Kelly and J.-B. Denis",
+     paste( "R. Pouillot, M.-L. Delignette-Muller",
         "(2010),",
-            "The mc2d package")
+        "Evaluating variability and uncertainty in microbial qunatitative risk assessment using two R packages.",
+		"Int J Food Microbiology. 142(3):330-40")
 )
