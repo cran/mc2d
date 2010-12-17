@@ -50,6 +50,7 @@ dempiricalD <- function(x,values,prob=NULL,log=FALSE)
 #CREATED 08-06-15
 #--------------------------------------------
 {
+  if(length(x) == 0) return(x)
   if(is.vector(values)) values <- matrix(values,nrow=1)
   if(is.null(prob)) prob <- array(1,dim=dim(values))
   if(is.vector(prob)) prob <- matrix(prob,nrow=1)
@@ -106,6 +107,7 @@ pempiricalD <- function(q,values,prob=NULL,lower.tail = TRUE, log.p = FALSE)
 #ISALIAS dempiricalD
 #--------------------------------------------
 {
+  if(length(q) == 0) return(q)
   if(is.vector(values)) values <- matrix(values,nrow=1)
   if(is.null(prob)) prob <- array(1,dim=dim(values))
   if(is.vector(prob)) prob <- matrix(prob,nrow=1)
@@ -163,6 +165,7 @@ qempiricalD <- function(p,values,prob=NULL,lower.tail = TRUE, log.p = FALSE)
 #ISALIAS dempiricalD
 #--------------------------------------------
 {
+  if(length(p) == 0) return(p)
   if(is.vector(values)) values <- matrix(values,nrow=1)
   if(is.null(prob)) prob <- array(1,dim=dim(values))
   if(is.vector(prob)) prob <- matrix(prob,nrow=1)
@@ -219,6 +222,7 @@ rempiricalD <- function(n,values,prob=NULL)
 #ISALIAS dempiricalD
 #--------------------------------------------
 {
+  if(length(n) == 0) return(n)
   if(length(n) > 1) n <- length(n)
 
   if(is.vector(values)) values <- matrix(values,nrow=1)

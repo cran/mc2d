@@ -13,6 +13,28 @@ dmultinomial(x, size=NULL, prob, log=FALSE)
 rmultinomial(n, size, prob)
 }
 \examples{
+x <- c(100, 200, 700)
+x1 <- matrix(c(100, 200, 700, 200, 100, 700, 700, 200, 100), byrow=TRUE, ncol=3)
+p <- c(1, 2, 7)
+p1 <- matrix(c(1, 2, 7, 2, 1, 7, 7, 2, 1), byrow=TRUE, ncol=3)
+dmultinomial(x1, prob=p) 
+## is equivalent to 
+c(	dmultinom(x1[1, ], prob=p), 
+	dmultinom(x1[2, ], prob=p), 
+	dmultinom(x1[3, ], prob=p))
+
+dmultinomial(x1, prob=p1, log=TRUE) 
+## is equivalent to 
+c(	dmultinom(x1[1, ], prob=p1[1, ], log=TRUE), 
+	dmultinom(x1[2, ], prob=p1[2, ], log=TRUE), 
+	dmultinom(x1[3, ], prob=p1[3, ], log=TRUE))
+
+dmultinomial(x, prob=p1, log=TRUE)
+## is equivalent to 
+c(	dmultinom(x, prob=p1[1, ], log=TRUE), 
+	dmultinom(x, prob=p1[2, ], log=TRUE), 
+	dmultinom(x, prob=p1[3, ], log=TRUE))
+
 prob <- c(1, 2, 7)
 rmultinomial(4, 1000, prob)
 rmultinomial(4, c(10, 100, 1000, 10000), prob)
@@ -25,9 +47,10 @@ mcstoc(rmultinomial, "VU", nvariates=3, size=s, prob=p)
 
 }
 \arguments{
-\item{x}{Vector of length K of integers in 0:size.}
-\item{n}{Number of random vectors to draw.}
-\item{size}{A vector of integers, say N, specifying the total number
+\item{x}{vector or matrix of length (or ncol) K of integers in
+\samp{0:size}.}
+\item{n}{number of random vectors to draw.}
+\item{size}{a vector of integers, say N, specifying the total number
 of objects that are put into K boxes in the typical multinomial
 experiment. For \samp{dmultinom}, it defaults to \samp{sum(x)}. The
 first element correspond to the vector \samp{prob} or the first row

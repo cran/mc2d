@@ -36,6 +36,7 @@ dbetagen <- function(x,shape1,shape2,min=0,max=1,ncp=0,log=FALSE)
 #CREATED 08-04-16
 #--------------------------------------------
 {
+  if(length(x) == 0) return(x)
   x <- (x-min)/(max-min)
   ow <- options(warn=-1)
   d <- dbeta(x,shape1=shape1,shape2=shape2,ncp=ncp,log=log)
@@ -49,6 +50,7 @@ pbetagen <- function(q,shape1,shape2,min=0,max=1,ncp=0,lower.tail = TRUE, log.p 
 #ISALIAS dbetagen
 #--------------------------------------------
 {
+  if(length(q) == 0) return(q)
   q2 <- (q-min)/(max-min)
   ow <- options(warn=-1)
   p <- pbeta(q2,shape1=shape1,shape2=shape2,ncp=ncp,lower.tail=lower.tail,log.p=log.p)
@@ -63,6 +65,7 @@ qbetagen <- function(p,shape1,shape2,min=0,max=1,ncp=0,lower.tail=TRUE,log.p=FAL
 #ISALIAS dbetagen
 #--------------------------------------------
 {
+  if(length(p) == 0) return(p)
   ow <- options(warn=-1)
   q <- qbeta(p,shape1=shape1,shape2=shape2,ncp=ncp,lower.tail=lower.tail,log.p=log.p)
   options(ow)
@@ -77,6 +80,7 @@ rbetagen <- function(n,shape1,shape2,min=0,max=1,ncp=0)
 #ISALIAS dbetagen
 #--------------------------------------------
 {
+  if(length(n) == 0) return(n)
   ow <- options(warn=-1)
   r <- rbeta(n,shape1=shape1,shape2=shape2,ncp=ncp)
   options(ow)

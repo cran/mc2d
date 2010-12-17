@@ -45,6 +45,7 @@ dpert <- function(x,min=-1,mode=0,max=1,shape=4,log=FALSE)
 #CREATED 08-02-20
 #--------------------------------------------
 {
+	if(length(x) == 0) return(x)
 	mu <- (min+max+shape*mode)/(shape+2)
 	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
@@ -64,6 +65,7 @@ ppert <- function(q,min=-1,mode=0,max=1,shape=4,lower.tail = TRUE, log.p = FALSE
 #ISALIAS dpert
 #--------------------------------------------
 {
+	if(length(q) == 0) return(q)
 	mu <- (min+max+shape*mode)/(shape+2)
 	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
@@ -85,6 +87,7 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
 #ISALIAS dpert
 #--------------------------------------------
 {
+  if(length(p) == 0) return(p)
   if(log.p) p <- exp(p)
   if(!lower.tail) p <- 1-p
 	mu <- (min+max+shape*mode)/(shape+2)
@@ -106,7 +109,9 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
 rpert <- function(n,min=-1,mode=0,max=1,shape=4)
 #ISALIAS dpert
 #--------------------------------------------
-{ if(length(n) > 1) n <- length(n)
+{ 
+  if(length(n) == 0) return(n)
+  if(length(n) > 1) n <- length(n)
 	oldw <- options(warn = -1)
 	r <- qpert(runif(n),min=min,mode=mode,max=max,shape=shape,lower.tail=TRUE,log.p=FALSE)
   options(warn = oldw$warn)

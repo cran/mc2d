@@ -26,6 +26,7 @@ dtriang <- function(x,min=-1,mode=0,max=1,log=FALSE)
 #CREATED 08-02-20
 #--------------------------------------------
 {
+	if(length(x) == 0) return(x)
 	quel <- x <= mode
 	d <- ifelse(quel,
               2*(x-min)/((mode-min)*(max-min)),
@@ -41,6 +42,7 @@ ptriang <- function(q,min=-1,mode=0,max=1,lower.tail = TRUE, log.p = FALSE)
 #ISALIAS dtriang
 #--------------------------------------------
 {
+	if(length(q) == 0) return(q)
 	quel <- q <= mode
 	p <- ifelse(quel,
               (q-min)^2 / ((mode-min)*(max-min)),
@@ -58,7 +60,8 @@ qtriang <- function(p,min=-1,mode=0,max=1,lower.tail=TRUE,log.p=FALSE)
 #ISALIAS dtriang
 #--------------------------------------------
 {
-  if(log.p) p <- exp(p)
+	if(length(p) == 0) return(p)
+    if(log.p) p <- exp(p)
 	if(!lower.tail) p <- 1-p
 	quel <- p <= (mode-min)/(max-min)
 	q <- ifelse(quel,
@@ -74,5 +77,6 @@ qtriang <- function(p,min=-1,mode=0,max=1,lower.tail=TRUE,log.p=FALSE)
 rtriang <- function(n,min=-1,mode=0,max=1)
 #ISALIAS dtriang
 #--------------------------------------------
-{  if(length(n) > 1) n <- length(n)
+{  	if(length(n) == 0) return(n)
+	if(length(n) > 1) n <- length(n)
 	return(qtriang(runif(n),min=min,mode=mode,max=max,lower.tail=TRUE,log.p=FALSE))}
