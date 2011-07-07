@@ -1,5 +1,5 @@
 #<<BEGIN>>
-plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.25, 0.75, 0.975), na.rm=TRUE, griddim = NULL, xlab = NULL, ylab = "Fn(x)", main = "", draw = TRUE, paint=TRUE,...)
+plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.25, 0.75, 0.975), na.rm=TRUE, griddim = NULL, xlab = NULL, ylab = "Fn(x)", main = "", draw = TRUE, paint=TRUE, xlim=NULL,...)
 #TITLE Plots Results of a Monte Carlo Simulation
 #DESCRIPTION
 # Plots the empirical cumulative distribution function of a \samp{mcnode} or a \samp{mc} object ("0" and "V" nodes) or the
@@ -19,6 +19,8 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
 #{main}<<vector of main titles of the graph.>>
 #{draw}<<Should the plot be drawn?>>
 #{paint}<<Should the enveloppes be filled?>>
+#{xlim}<<x coordinate range. \samp{xlim} is either a vector of length 2, used for each graph, or a list of vectors of length 2, 
+#whose ith element is used for the ith graph. By default, the data range is used as \samp{xlim}.>>
 #{\dots}<<further arguments to be passed to \samp{plot.stepfun}.>>
 #DETAILS
 #\samp{plot.mcnode} is a user-friendly function that send the \samp{mcnode} to \samp{plot.mc}.</>
@@ -86,9 +88,10 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
         if(stat=="median") y <- y[-2,,drop=FALSE]
         else y <- y[-1,,drop=FALSE]}                                              #Retrait median or mean
   		nr <- nrow(y)
-      xlima <- range(y,na.rm=TRUE)
-  		if(xlima[1]==xlima[2]) xlima <- xlima + c(-0.5,0.5)
       i <- get("i",envir=env)
+      xlima <- if(is.null(xlim)) range(y,na.rm=TRUE) else 
+		xlima <- if(is.list(xlim)) xlim[[i]] else xlim
+  		if(xlima[1]==xlima[2]) xlima <- xlima + c(-0.5,0.5)
       x50 <- plot.stepfun(y[1,], main=main[i], xlim=xlima, ylab = ylab[i], verticals = TRUE, do.points = FALSE, xlab=xlab[i], lwd=3, ...)
       abline(h = c(0, 1), col =  "gray70", lty = 3)
 

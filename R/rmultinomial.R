@@ -50,7 +50,7 @@ dmultinomial <- function (x, size = NULL, prob, log = FALSE)
 #Recycling is permitted.
 #--------------------------------------------
 { 
-    if(length(x) == 0) return(x)
+    if(length(x) == 0) return(numeric(0))
 	if(is.vector(prob)) prob <- t(prob)
     if(is.vector(x)) x <- t(x)
     K <- ncol(prob)
@@ -82,7 +82,7 @@ dmultinomial <- function (x, size = NULL, prob, log = FALSE)
 										}
 				)
 		
-    if (log) return(r) else return(exp(r))
+    if (log) return(r) else return(log(r))
 }
 
 #<<BEGIN>>
@@ -90,8 +90,11 @@ rmultinomial <- function(n, size, prob)
 #ISALIAS dmultinomial
 #--------------------------------------------
 {
-  if(length(n) == 0) return(n)
   if(length(n) > 1) n <- length(n)
+  if(length(n) == 0 || as.integer(n) == 0) return(numeric(0))
+  n <- as.integer(n)
+  if(n < 0) stop("integer(n) can not be negative in rmultinomial")
+  
   if(is.vector(prob) || (dim(prob)[1]) == 1) {
     if(length(size)==1) return(t(rmultinom(n,size,prob)))      # classical
     prob <- matrix(prob,nrow=1)

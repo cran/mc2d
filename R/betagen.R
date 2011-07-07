@@ -1,3 +1,4 @@
+
 #<<BEGIN>>
 dbetagen <- function(x,shape1,shape2,min=0,max=1,ncp=0,log=FALSE)
 #TITLE The Generalised Beta Distribution
@@ -36,13 +37,17 @@ dbetagen <- function(x,shape1,shape2,min=0,max=1,ncp=0,log=FALSE)
 #CREATED 08-04-16
 #--------------------------------------------
 {
-  if(length(x) == 0) return(x)
-  x <- (x-min)/(max-min)
+  if(length(x) == 0) return(numeric(0))
   ow <- options(warn=-1)
-  d <- dbeta(x,shape1=shape1,shape2=shape2,ncp=ncp,log=log)
+  x <- (x - min)/(max - min)
   options(ow)
+  if(missing(ncp))
+  d <- dbeta(x, shape1=shape1, shape2=shape2) / (max-min)
+  else
+  d <- dbeta(x, shape1=shape1, shape2=shape2, ncp=ncp) / (max-min)
+  if(log) d <- log(d)
   d[max <= min] <- NaN
-	if(any(is.na(d))) warning("NaN in dbetagen")
+  if(any(is.na(d))) warning("NaN in dbetagen")
   return(d)}
 
 #<<BEGIN>>
@@ -50,14 +55,22 @@ pbetagen <- function(q,shape1,shape2,min=0,max=1,ncp=0,lower.tail = TRUE, log.p 
 #ISALIAS dbetagen
 #--------------------------------------------
 {
-  if(length(q) == 0) return(q)
-  q2 <- (q-min)/(max-min)
+  if(length(q) == 0) return(numeric(0))
+  q2 <- (q - min)/(max-min)
   ow <- options(warn=-1)
-  p <- pbeta(q2,shape1=shape1,shape2=shape2,ncp=ncp,lower.tail=lower.tail,log.p=log.p)
+  if(missing(ncp))
+  p <- pbeta(q2,shape1=shape1,shape2=shape2, lower.tail=lower.tail,log.p=log.p)
+  else
+  p <- pbeta(q2,shape1=shape1,shape2=shape2, ncp=ncp, lower.tail=lower.tail, log.p=log.p)
   options(ow)
-  p[q == min & q==max] <- 1 #if min==max==q
+  # If min = max = q -> should return 1
+  quel <- mapply(function(x, y) isTRUE(all.equal(x, y)), q, min) & 
+          mapply(function(x, y) isTRUE(all.equal(x, y)), q, max)  #if min == max == q
+  p[quel] <- if(lower.tail) 1 else 0 
+  if(log.p) p[quel] <- log(p[quel]) 
+    
   p[max < min] <- NaN
-	if(any(is.na(p))) warning("NaN in pbetagen")
+  if(any(is.na(p))) warning("NaN in pbetagen")
   return(p)}
 
 #<<BEGIN>>
@@ -65,13 +78,16 @@ qbetagen <- function(p,shape1,shape2,min=0,max=1,ncp=0,lower.tail=TRUE,log.p=FAL
 #ISALIAS dbetagen
 #--------------------------------------------
 {
-  if(length(p) == 0) return(p)
+  if(length(p) == 0) return(numeric(0))
   ow <- options(warn=-1)
-  q <- qbeta(p,shape1=shape1,shape2=shape2,ncp=ncp,lower.tail=lower.tail,log.p=log.p)
+  if(missing(ncp))
+  q <- qbeta(p,shape1=shape1, shape2=shape2, lower.tail=lower.tail, log.p=log.p)
+  else
+  q <- qbeta(p,shape1=shape1, shape2=shape2, ncp=ncp, lower.tail=lower.tail, log.p=log.p)
   options(ow)
-  q2 <- q2*(max-min)+min
+  q2 <- q * (max-min) + min
   q2[max < min] <- NaN
-	if(any(is.na(q2))) warning("NaN in qbetagen")
+  if(any(is.na(q2))) warning("NaN in qbetagen")
   return(q2)}
 
 
@@ -80,11 +96,17 @@ rbetagen <- function(n,shape1,shape2,min=0,max=1,ncp=0)
 #ISALIAS dbetagen
 #--------------------------------------------
 {
-  if(length(n) == 0) return(n)
+  if(length(n) > 1) n <- length(n)
+  if(length(n) == 0 || as.integer(n) == 0) return(numeric(0))
+  n <- as.integer(n)
+  if(n < 0) stop("integer(n) can not be negative in rbetagen")  
   ow <- options(warn=-1)
-  r <- rbeta(n,shape1=shape1,shape2=shape2,ncp=ncp)
+  if(missing(ncp))
+  r <- rbeta(n, shape1=shape1, shape2=shape2)
+  else
+  r <- rbeta(n, shape1=shape1, shape2=shape2, ncp=ncp)
   options(ow)
-  r2 <- r*(max-min)+min
+  r2 <- r*(max-min) + min
   r2[max < min] <- NaN
   if(any(is.na(r2))) warning("NaN in rbetagen")
   return(r2)

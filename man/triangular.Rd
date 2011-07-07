@@ -20,6 +20,8 @@ rtriang(n, min=-1, mode=0, max=1)
 }
 \examples{
 curve(dtriang(x, min=3, mode=5, max=10), from = 2, to = 11)
+##no density when min == mode == max
+dtriang(c(1, 2, 3), min=2, mode=2, max=2)
 
 
 
@@ -36,6 +38,11 @@ is taken to be the number required.}
 given as \samp{log(p)}.}
 \item{lower.tail}{logical; if \samp{TRUE} (default), probabilities
 are \samp{P[X <= x]}, otherwise, \samp{P[X > x]}.}
+}
+\details{
+For the case of u := min == mode == max, there is no density in that
+case and dtriang will return NaN (the error condition) (Similarity
+with dunif).
 }
 \value{
 \samp{dtriang} gives the density, \samp{ptriang} gives the

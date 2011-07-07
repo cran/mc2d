@@ -45,17 +45,21 @@ dpert <- function(x,min=-1,mode=0,max=1,shape=4,log=FALSE)
 #CREATED 08-02-20
 #--------------------------------------------
 {
-	if(length(x) == 0) return(x)
+	if(length(x) == 0) return(numeric(0))
+	
 	mu <- (min+max+shape*mode)/(shape+2)
 	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
 	oldw <- options(warn = -1)
-  d <- dbeta(x=(x-min)/(max-min),shape1=a1,shape2=a2)
+	
+	d <- dbeta(x=(x-min)/(max-min),shape1=a1,shape2=a2) / (max-min)
 	options(warn = oldw$warn)
-  d[x < min | x > max] <- 0
+	
+	d[x < min | x > max] <- 0
 	d[mode < min | max < mode] <- NaN
+	d[shape <= -2] <- NaN
 	if(log) d <- log(d)
 	if(any(is.na(d))) warning("NaN in dpert")
   return(d)}
@@ -65,20 +69,22 @@ ppert <- function(q,min=-1,mode=0,max=1,shape=4,lower.tail = TRUE, log.p = FALSE
 #ISALIAS dpert
 #--------------------------------------------
 {
-	if(length(q) == 0) return(q)
-	mu <- (min+max+shape*mode)/(shape+2)
+	if(length(q) == 0) return(numeric(0))
+	
+	mu <- (min + max + shape*mode)/(shape + 2)
 	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
 	oldw <- options(warn = -1)
-  p <- pbeta(q=(q-min)/(max-min),shape1=a1,shape2=a2)
+	p <- pbeta(q=(q-min)/(max-min),shape1=a1,shape2=a2)
 	options(warn = oldw$warn)
 	p[q < min] <- 0
-	p[q > max] <- 1
+	p[q >= max] <- 1
 	p[mode < min | max < mode] <- NaN
-  if(!lower.tail) p <- 1-p
-  if(log.p) p <- log(p)
+	p[shape <= -2] <- NaN
+	if(!lower.tail) p <- 1-p
+	if(log.p) p <- log(p)
 	if(any(is.na(p))) warning("NaN in ppert")
   return(p)}
 
@@ -87,21 +93,24 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
 #ISALIAS dpert
 #--------------------------------------------
 {
-  if(length(p) == 0) return(p)
+  if(length(p) == 0) return(numeric(0))
   if(log.p) p <- exp(p)
-  if(!lower.tail) p <- 1-p
+  if(!lower.tail) p <- 1 - p
 	mu <- (min+max+shape*mode)/(shape+2)
 	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
 	oldw <- options(warn = -1)
-  q <- qbeta(p,shape1=a1,shape2=a2)
-	options(warn = oldw$warn)
+  q <- qbeta(p, shape1=a1, shape2=a2)
+  options(warn = oldw$warn)
   q <- q * (max-min) + min
+  #Very special case min = max = mode
+  q[mapply(function(x,y) isTRUE(all.equal(x,y)),min,max)] <- 1
   q[p < 0 | p > 1] <- NaN
-	q[mode < min | max < mode] <- NaN
-	if(any(is.na(q))) warning("NaN in qpert")
+  q[mode < min | max < mode] <- NaN
+  q[shape <= -2] <- NaN
+  if(any(is.na(q))) warning("NaN in qpert")
   return(q)}
 
 
@@ -109,12 +118,14 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
 rpert <- function(n,min=-1,mode=0,max=1,shape=4)
 #ISALIAS dpert
 #--------------------------------------------
-{ 
-  if(length(n) == 0) return(n)
-  if(length(n) > 1) n <- length(n)
-	oldw <- options(warn = -1)
-	r <- qpert(runif(n),min=min,mode=mode,max=max,shape=shape,lower.tail=TRUE,log.p=FALSE)
+{ if(length(n) > 1) n <- length(n)
+  if(length(n) == 0 || as.integer(n) == 0) return(numeric(0))
+  n <- as.integer(n)
+  if(n < 0) stop("integer(n) can not be negative in rpert")
+  
+  oldw <- options(warn = -1)
+  r <- qpert(runif(n),min=min,mode=mode,max=max,shape=shape,lower.tail=TRUE,log.p=FALSE)
   options(warn = oldw$warn)
-	if(any(is.na(r))) warning("NaN in rpert")
+  if(any(is.na(r))) warning("NaN in rpert")
   return(r)
 }
