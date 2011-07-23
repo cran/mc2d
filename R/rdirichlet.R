@@ -31,13 +31,9 @@ ddirichlet <- function (x, alpha)
 #unclass(x)
 #--------------------------------------------
 {
-    if(length(x) == 0) return(x)
-	dirichlet1 <- function(x, alpha) {
-        logD <- sum(lgamma(alpha)) - lgamma(sum(alpha))
-        s <- sum((alpha - 1) * log(x))
-        exp(sum(s) - logD)
-    }
-    if (!is.matrix(x)) x <- t(x)
+    if(length(x) == 0) return(numeric(0))
+	
+	if (!is.matrix(x)) x <- t(x)
     if (!is.matrix(alpha)) alpha <- t(alpha)
     
     ncx <- ncol(x)
@@ -47,10 +43,14 @@ ddirichlet <- function (x, alpha)
     nrx <- nrow(x)
     nra <- nrow(alpha)
 
-    if(nra!=nrx) alpha <- matrix(t(alpha), ncol = nca, nrow = nrx, byrow = TRUE)
-    pd <- vector(length = nrx)
-    for (i in 1:nrx) pd[i] <- dirichlet1(x[i, ], alpha[i,])
-    pd[apply(x, 1, function(z) any(z < 0 | z > 1))] <- 0
+    if(nra != nrx) alpha <- matrix(t(alpha), ncol = nca, nrow = nrx, byrow = TRUE)
+    
+	lgama <- lgamma(alpha)
+	logD <- apply(lgama,1,sum) - lgamma(apply(alpha,1,sum))
+	s <- apply((alpha - 1) * log(x), 1, sum)
+	pd <- exp(s - logD)
+    
+	pd[apply(x, 1, function(z) any(z < 0 | z > 1))] <- 0
     pd[apply(x, 1, function(z) all.equal(sum(z), 1) != TRUE)] <- 0
     return(pd)
 }
@@ -61,8 +61,11 @@ rdirichlet <- function (n, alpha)
 #ISALIAS ddirichlet
 #--------------------------------------------
 {
-  if(length(n) == 0) return(n)
   if(length(n) > 1) n <- length(n)
+  if(length(n) == 0 || as.integer(n) == 0) return(numeric(0))
+  n <- as.integer(n)
+  if(n < 0) stop("integer(n) can not be negative in rtriang")
+  
   if(is.vector(alpha)) alpha <- t(alpha)
   l <- dim(alpha)[2]
   x <- matrix(rgamma(l * n, t(alpha)), ncol = l, byrow=TRUE)  # Gere le recycling

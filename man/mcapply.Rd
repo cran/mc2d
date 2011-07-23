@@ -26,7 +26,8 @@ mcapply(total, "all", exp)
 \samp{"all"} (default) to apply the function on all values,
 \samp{"var"} to apply the function on the variability dimension,
 \samp{"unc"} to apply the function on the uncertainty dimension, or
-\samp{"variates"} to apply the function on the variates.}
+\samp{"variates"} to apply the function on the variates. Watch out:
+do not use 'var' for 'variates'}
 \item{fun}{The function to be applied. When applied to a vector of
 length \samp{n}, \samp{fun} should return a vector of length \samp{n}
 or \samp{1}.}

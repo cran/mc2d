@@ -1,4 +1,4 @@
-citHeader("To cite fitdistrplus in publications use:")
+citHeader("To cite mc2d in publications use:")
 
 
 citEntry(entry="article",
