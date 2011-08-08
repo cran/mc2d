@@ -107,9 +107,9 @@ rtriang <- function(n, min=-1, mode=0, max=1)
   if(n < 0) stop("integer(n) can not be negative in rtriang")
   U <- runif(n)
   ow <- options(warn=-1)
-  q <- qtriang(U,	min=rep(min,length.out=n),
-					mode=rep(mode,length.out=n),
-					max=rep(max,length.out=n),lower.tail = TRUE, log.p = FALSE)
+  q <- qtriang(U,	min=min,
+					mode=mode,
+					max=max,lower.tail = TRUE, log.p = FALSE)
   options(ow)
   if(any(is.na(q))) warning("NaN in rtriang")
    
