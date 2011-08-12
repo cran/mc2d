@@ -1,5 +1,12 @@
 === mc2d ===
 
+Version 0.1-11
+=============
+
+BUG FIX
+
+- rtriang was really slow in Version 0.1-10
+
 Version 0.1-10
 =============
 
