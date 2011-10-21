@@ -46,7 +46,7 @@ summary.mc <- function(object,probs = c(0,0.025,0.25,0.5,0.75,0.975,1),lim=c(0.0
   nom2 <- c("median","mean",nom2)
 
   warnna <- FALSE
-  stat1 <- function(x){
+  stat1 <- function(x){	# x is a array(nvar, nunc, 1)
     nsimna <- apply(x,2,function(x) sum(is.na(x)))
     if(yaprob) quant <- t(apply(x,2,quantile,na.rm=TRUE,probs=probs,names = FALSE))
       else quant <- NULL
@@ -55,7 +55,7 @@ summary.mc <- function(object,probs = c(0,0.025,0.25,0.5,0.75,0.975,1),lim=c(0.0
         eval(expression(warnna <- TRUE),sys.parent())}
 
         cbind(    colMeans(x,na.rm=TRUE),
-                  apply(x,2,sd,na.rm=TRUE),
+                  apply(x,c(2,3),sd,na.rm=TRUE),	#compliance with deprecated sd(<matrix>)
                   quant,
                   apply(x,2,length),
                   nsimna)

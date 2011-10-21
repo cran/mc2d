@@ -100,8 +100,7 @@ evalmccut <- function(model, nsv = ndvar(), nsu = ndunc(), seed = NULL,  ind = "
 #      list(
 #        sum = summary(res),
 #        plot = plot(res, draw=FALSE),
-#        minmax = lapply(res,range),
-#        et =  sapply(res,sd)
+#        minmax = lapply(res,range)
 #     )
 #    }
 #})

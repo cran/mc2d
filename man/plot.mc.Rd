@@ -15,7 +15,7 @@ empirical cumulative distribution function of the estimate of a
 \usage{
 \method{plot}{mc}(x, prec=0.001, stat=c("median", "mean"), lim=c(0.025, 0.25, 0.75,
 	  0.975), na.rm=TRUE, griddim=NULL, xlab=NULL, ylab="Fn(x)",
-	  main="", draw=TRUE, paint=TRUE, xlim=NULL, ...)
+	  main="", draw=TRUE, paint=TRUE, xlim=NULL, ylim=NULL, ...)
 \method{plot}{mcnode}(x, ...)
 \method{plot}{plotmc}(x, ...)
 \method{plot}{mccut}(x, stat=c("median", "mean"), lim=c(0.025, 0.25, 0.75, 0.975),
@@ -62,6 +62,10 @@ name of the node.}
 length 2, used for each graph, or a list of vectors of length 2,
 whose ith element is used for the ith graph. By default, the data
 range is used as \samp{xlim}.}
+\item{ylim}{y coordinate range. \samp{ylim} is either a vector of
+length 2, used for each graph, or a list of vectors of length 2,
+whose ith element is used for the ith graph. By default, the data
+range is 0-1.}
 \item{\dots}{further arguments to be passed to \samp{plot.stepfun}.}
 }
 \details{

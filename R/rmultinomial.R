@@ -82,7 +82,7 @@ dmultinomial <- function (x, size = NULL, prob, log = FALSE)
 										}
 				)
 		
-    if (log) return(r) else return(log(r))
+    if (log) return(r) else return(exp(r))
 }
 
 #<<BEGIN>>

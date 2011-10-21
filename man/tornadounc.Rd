@@ -1,6 +1,8 @@
 \name{tornadounc}
 \alias{tornadounc}
 \alias{tornadounc.mc}
+\alias{tornadounc}
+\alias{tornadounc.default}
 \alias{print.tornadounc}
 \alias{tornadounc.mccut}
 \title{
@@ -15,6 +17,7 @@ dimension.
 \usage{
 \method{tornadounc}{mc}(mc, output=length(mc), quant=c(0.5, 0.75, 0.975), use="all.obs",
 	  method=c("spearman", "kendall", "pearson"), ...)
+\method{tornadounc}{default}(mc, ...)
 \method{print}{tornadounc}(x, ...)
 \method{tornadounc}{mccut}(mc, output=length(mc), quant=c(0.5, 0.75, 0.975), use="all.obs",
 	  method=c("spearman", "kendall", "pearson"), ...)
@@ -27,6 +30,8 @@ tornadounc(total, 7, use="complete.obs")
 tornadounc(total, 8, use="complete.obs")
 (y <- tornadounc(total, 10, use="complete.obs"))
 plot(y, 1, 1)
+
+
 
 
 }
