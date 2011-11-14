@@ -1,5 +1,5 @@
 #<<BEGIN>>
-plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.25, 0.75, 0.975), na.rm=TRUE, griddim = NULL, xlab = NULL, ylab = "Fn(x)", main = "", draw = TRUE, paint=TRUE, xlim=NULL,...)
+plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.25, 0.75, 0.975), na.rm=TRUE, griddim = NULL, xlab = NULL, ylab = "Fn(x)", main = "", draw = TRUE, paint=TRUE, xlim=NULL,ylim=NULL,...)
 #TITLE Plots Results of a Monte Carlo Simulation
 #DESCRIPTION
 # Plots the empirical cumulative distribution function of a \samp{mcnode} or a \samp{mc} object ("0" and "V" nodes) or the
@@ -21,6 +21,8 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
 #{paint}<<Should the enveloppes be filled?>>
 #{xlim}<<x coordinate range. \samp{xlim} is either a vector of length 2, used for each graph, or a list of vectors of length 2, 
 #whose ith element is used for the ith graph. By default, the data range is used as \samp{xlim}.>>
+#{ylim}<<y coordinate range. \samp{ylim} is either a vector of length 2, used for each graph, or a list of vectors of length 2, 
+#whose ith element is used for the ith graph. By default, the data range is 0-1.>>
 #{\dots}<<further arguments to be passed to \samp{plot.stepfun}.>>
 #DETAILS
 #\samp{plot.mcnode} is a user-friendly function that send the \samp{mcnode} to \samp{plot.mc}.</>
@@ -58,7 +60,7 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
     }
 
   if(draw) {
-    y <- x                           # for a correct return
+	y <- x                           # for a correct return
     stat <- match.arg(stat)
 
 	 beau <- function(n){
@@ -69,6 +71,9 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
    noms <- names(rapply(x,function(x) 1))    #moche mais efficace
    if(is.null(xlab)) xlab <- noms
    n <- length(noms)
+
+   if(!is.null(ylim) & ((is.list(ylim) & length(ylim)!= n)|(is.vector(ylim) & length(ylim)!= 2))) stop("ylim should be NULL, a vector of 2 elements or a list of length the number of nodes") 
+   if(!is.null(xlim) & ((is.list(xlim) & length(xlim)!= n)|(is.vector(xlim) & length(xlim)!= 2))) stop("xlim should be NULL, a vector of 2 elements or a list of length the number of nodes") 
 
 	 main <- rep(main,n)
 	 xlab <- rep(xlab,n)
@@ -91,8 +96,10 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
       i <- get("i",envir=env)
       xlima <- if(is.null(xlim)) range(y,na.rm=TRUE) else 
 		xlima <- if(is.list(xlim)) xlim[[i]] else xlim
-  		if(xlima[1]==xlima[2]) xlima <- xlima + c(-0.5,0.5)
-      x50 <- plot.stepfun(y[1,], main=main[i], xlim=xlima, ylab = ylab[i], verticals = TRUE, do.points = FALSE, xlab=xlab[i], lwd=3, ...)
+  	  if(xlima[1]==xlima[2]) xlima <- xlima + c(-0.5,0.5)
+      ylima <- if(is.null(ylim)) c(0,1) else 
+		ylima <- if(is.list(ylim)) ylim[[i]] else ylim
+      x50 <- plot.stepfun(y[1,], main=main[i], xlim=xlima, ylim=ylima, ylab = ylab[i], verticals = TRUE, do.points = FALSE, xlab=xlab[i], lwd=3, ...)
       abline(h = c(0, 1), col =  "gray70", lty = 3)
 
       # Points for the polygon used to fill the enveloppe
