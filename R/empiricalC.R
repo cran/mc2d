@@ -284,6 +284,6 @@ rempiricalC <- function(n, min, max, values, prob=NULL)
   else if(is.matrix(prob) && nrow(prob) > n)   prob <- prob[1:n,]
   
   r <- qempiricalC(runif(n), min=min, max=max, values=values, prob=prob, lower.tail = TRUE, log.p = FALSE)
-  return(r)
+  return(as.vector(r))
 
   }

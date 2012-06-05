@@ -36,25 +36,26 @@ rtrunc <- function(distr=runif, n, linf=-Inf, lsup=Inf,...)
 #REVISED 10-02-10
 #--------------------------------------------
 {
-    if(!is.character(distr)) distr <- as.character(match.call()$distr)          #retrieve the name of the function
+    linf <- as.vector(linf)
+	lsup <- as.vector(lsup)
+	if(!is.character(distr)) distr <- as.character(match.call()$distr)          #retrieve the name of the function
     distr <- substr(distr, 2, 1000)                                             #remove the r
 
-    lmax <- max(length(linf),length(lsup))
-    if(any(rep(linf, length.out = lmax) >= rep(lsup, length.out = lmax))) stop("linf should be < lsup")  #recycle vectors
+    if(any(linf >= lsup)) stop("linf should be < lsup")  #recycle vectors
 
     pfun <- get(paste("p",distr,sep=""),mode="function")
 
-    pinf <- pfun(q=linf,...)
-    psup <- pfun(q=lsup,...)
+    pinf <- as.vector(pfun(q=linf,...))
+    psup <- as.vector(pfun(q=lsup,...))
 
     p <- runif(n,min=pinf,max=psup)
 
     qfun <- get(paste("q",distr,sep=""),mode="function")
 
-    res <- qfun(p,...)
+    res <- as.vector(qfun(p,...))
     # Some possible problem (check if you think to others)
     #
-    res[pinf<=0 & res > lsup] <- NaN          #ex: rtrunc("lnorm",10,linf=-2,lsup=-1)
+    res[pinf <= 0 & res > lsup] <- NaN          #ex: rtrunc("lnorm",10,linf=-2,lsup=-1)
     res[psup>=1 & res < linf] <- NaN          #ex: rtrunc("unif",10,linf=2,lsup=4,max=1)
     res[is.na(linf) | is.na(lsup)] <- NaN   #ex: rtrunc("norm",10,sd=-2)
 

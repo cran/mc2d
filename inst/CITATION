@@ -2,7 +2,7 @@ citHeader("To cite mc2d in publications use:")
 
 
 citEntry(entry="article",
-         title = "Evaluating variability and uncertainty in microbial qunatitative risk assessment using two R packages",
+         title = "Evaluating variability and uncertainty in microbial quantitative risk assessment using two R packages",
          author = "R. Pouillot, M.-L. Delignette-Muller",
 		 journal = "International Journal of Food Microbiology",
 		 volume = 142,
@@ -13,6 +13,6 @@ citEntry(entry="article",
          textVersion =
      paste( "R. Pouillot, M.-L. Delignette-Muller",
         "(2010),",
-        "Evaluating variability and uncertainty in microbial qunatitative risk assessment using two R packages.",
-		"Int J Food Microbiology. 142(3):330-40")
+        "Evaluating variability and uncertainty in microbial quantitative risk assessment using two R packages.",
+		"International Journal of Food Microbiology. 142(3):330-40")
 )

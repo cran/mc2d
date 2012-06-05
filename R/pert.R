@@ -31,6 +31,7 @@ dpert <- function(x,min=-1,mode=0,max=1,shape=4,log=FALSE)
 #If \eqn{\mu=mode}{mu=mode}, \eqn{\alpha_{1}}{shape1} is set to \eqn{1+\nu/2}{1+shape/2}.
 #REFERENCE
 #Vose D. Risk Analysis - A Quantitative Guide (John Wiley & Sons, 2000).
+#AUTHOR Regis Pouillot and Matthew Wiener
 #EXAMPLE
 #curve(dpert(x,min=3,mode=5,max=10,shape=6), from = 2, to = 11, lty=3)
 #curve(dpert(x,min=3,mode=5,max=10), from = 2, to = 11, add=TRUE)
@@ -46,9 +47,13 @@ dpert <- function(x,min=-1,mode=0,max=1,shape=4,log=FALSE)
 #--------------------------------------------
 {
 	if(length(x) == 0) return(numeric(0))
+	min <- as.vector(min)
+	mode <- as.vector(mode)
+	max <- as.vector(max)
+	shape <- as.vector(shape)
 	
 	mu <- (min+max+shape*mode)/(shape+2)
-	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
+	a1 <- ifelse((abs(mu-mode)) < (.Machine$double.eps^0.5),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
@@ -70,9 +75,13 @@ ppert <- function(q,min=-1,mode=0,max=1,shape=4,lower.tail = TRUE, log.p = FALSE
 #--------------------------------------------
 {
 	if(length(q) == 0) return(numeric(0))
+	min <- as.vector(min)
+	mode <- as.vector(mode)
+	max <- as.vector(max)
+	shape <- as.vector(shape)
 	
 	mu <- (min + max + shape*mode)/(shape + 2)
-	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
+	a1 <- ifelse((abs(mu-mode)) < (.Machine$double.eps^0.5),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
@@ -94,10 +103,14 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
 #--------------------------------------------
 {
   if(length(p) == 0) return(numeric(0))
+	min <- as.vector(min)
+	mode <- as.vector(mode)
+	max <- as.vector(max)
+	shape <- as.vector(shape)
   if(log.p) p <- exp(p)
   if(!lower.tail) p <- 1 - p
 	mu <- (min+max+shape*mode)/(shape+2)
-	a1 <- ifelse(mapply(function(x,y) isTRUE(all.equal(x,y)),mu,mode),
+	a1 <- ifelse((abs(mu-mode)) < (.Machine$double.eps^0.5),
                 1+shape/2,
                 (mu-min)*(2*mode-min-max)/((mode-mu)*(max-min)))
 	a2 <- a1*(max-mu)/(mu-min)
@@ -106,7 +119,7 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
   options(warn = oldw$warn)
   q <- q * (max-min) + min
   #Very special case min = max = mode
-  q[mapply(function(x,y) isTRUE(all.equal(x,y)),min,max)] <- 1
+  q[(abs(min-max)) < (.Machine$double.eps^0.5)] <- 1
   q[p < 0 | p > 1] <- NaN
   q[mode < min | max < mode] <- NaN
   q[shape <= -2] <- NaN
@@ -124,7 +137,11 @@ rpert <- function(n,min=-1,mode=0,max=1,shape=4)
   if(n < 0) stop("integer(n) can not be negative in rpert")
   
   oldw <- options(warn = -1)
-  r <- qpert(runif(n),min=min,mode=mode,max=max,shape=shape,lower.tail=TRUE,log.p=FALSE)
+  r <- qpert(runif(n),  min=min,
+						mode=mode,
+						max=max,
+						shape=shape,
+						lower.tail=TRUE,log.p=FALSE)
   options(warn = oldw$warn)
   if(any(is.na(r))) warning("NaN in rpert")
   return(r)
