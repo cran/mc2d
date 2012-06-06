@@ -33,12 +33,12 @@ pmax <- function (..., na.rm = FALSE)
 
 
 #<<BEGIN>>
-pmin.default <- base::pmin
+pmin.default <- function(..., na.rm = FALSE) base::pmin(..., na.rm = na.rm)
 #ISALIAS pmin
 #--------------------------------------------
 
 #<<BEGIN>>
-pmax.default <- base::pmax
+pmax.default <- function(..., na.rm = FALSE) base::pmax(..., na.rm = na.rm)
 #ISALIAS pmin
 #--------------------------------------------
 

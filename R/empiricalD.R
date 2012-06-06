@@ -265,6 +265,6 @@ rempiricalD <- function(n,values,prob=NULL)
   # then the remaining n2, if any
   if(n2!=0)
     res <- c(res,mapply(sample,x=values[1:n2],prob=prob[1:n2],MoreArgs=list(size=1,replace=TRUE)))
-  return(res)
+  return(as.vector(res))
 }
 

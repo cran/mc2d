@@ -1,5 +1,14 @@
 === mc2d ===
 
+Version 0.1-13
+=============
+
+BUG FIX
+
+- pert, betagen and triang functions were slow in previous versions. This is fixed 
+- some of the rdist functions returned matrixes when some of the arguments were matrixes
+- all parameters but the first one are now vectorized in the univariate p, d, q, r distribution functions
+
 Version 0.1-12
 =============
 

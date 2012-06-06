@@ -51,5 +51,5 @@ lhs <- function(distr="runif",nsv=ndvar(),nsu=ndunc(),nvariates=1,...)
       eps <- matrix(runif(nsv * nsu), nrow = nsv, ncol = nsu)
       P[,,i] <- (P[,,i] - 1 + eps) / nsv
       }
-    return(do.call(distr,c(list(p=P),arg)))
+    return(as.vector(do.call(distr,c(list(p=P),arg))))
 }
