@@ -16,6 +16,13 @@ rtrunc("rnorm", n=10, linf=0)
 range(rtrunc(rnorm, n=1000, linf=3, lsup=5, sd=10))
 ## Discrete distributions
 range(rtrunc(rpois, 1000, linf=2, lsup=4, lambda=1))
+##Examples of rounding problems. 
+##The first one will provide a warning while the results are unexpected, 
+##The second will provide an error.
+\dontrun{
+table(rtrunc(rbinom, n=1000, size=10, prob=1-1E-20, lsup=9))
+table(rtrunc(rbinom, n=1000, size=10, prob=1E-14, linf=0))
+}
 }
 \arguments{
 \item{distr}{A function providing random data or its name as
@@ -49,6 +56,10 @@ A vector of \samp{n} values.
 }
 \note{
 The inversion of the quantile function leads to time consuming
-functions for some distributions.
+functions for some distributions. WARNING: The method is flexible,
+but can lead to problems linked to rounding errors in some extreme
+situations. The function checks that the values are in the expected
+range and returns an error if not. It also warns some extreme
+situation that could lead to unexpected results. See Examples.
 }
 \keyword{distribution}

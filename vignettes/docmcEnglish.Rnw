@@ -114,13 +114,19 @@ specify an empirical or parametric distribution representing variability.
 This distribution is conditional upon other parameters to which is
 associated the uncertainty. As an example, one should be able
 to specify a relationship such as
-\[ r\left|a,b\right.\sim N\left(a,b\right) \]
+\begin{eqnarray*}
+r \mid a,b \sim N\left(a,b\right) 
+\end{eqnarray*}
 where the specified normal distribution represents variability in
 $r$ conditional upon parameters $a$ and $b$. Hyperdistributions,
 such as
-\[ a\sim Unif\left(l_{a},u_{a}\right) \]
+\begin{eqnarray*}
+a\sim Unif\left(l_{a},u_{a}\right) 
+\end{eqnarray*}
 and
-\[ b\sim Unif\left(l_{b},u_{b}\right) \]
+\begin{eqnarray*}
+b\sim Unif\left(l_{b},u_{b}\right) 
+\end{eqnarray*}
 represent the uncertainty in the parameters $a$ and $b$ with uniform distribution;
 \item A set of uncertain parameters are randomly sampled from their respective
 distributions; 
@@ -155,6 +161,39 @@ Simulation.}
 
 \end{figure}
 
+More formally, the two-dimensional Monte-Carlo simulation is a tool
+proposed to estimate the uncertainty of probability distributions of
+random variables of interest (and then some of its characteristics
+such as the mean or some percentiles). In its simplest version, an
+illustration of the basic framework could be written as a chain of
+three random variables:
+\begin{eqnarray*}
+p \rightarrow \pi \rightarrow Y
+\end{eqnarray*}
+characterised by the marginal distribution of $p:[p]$ and the
+conditional distributions of $\pi : [\pi \mid p]$ and $Y:[Y \mid
+  \pi]$, under the assumption that the joint distribution of these
+three random variables is the product:
+\begin{eqnarray*}
+[p,\pi,Y]=[p][\pi \mid p][Y \mid \pi].
+\end{eqnarray*}
+The interpretation for each of these variables is:
+\begin{description}
+\item[$Y$]  is the variable of interest;
+
+\item[$\pi$] is the parameter characterising the distribution of
+  $Y$. $\pi$ is not known precisely but the uncertainty associated to
+  $\pi$ can be characterised through a distribution $[\pi \mid p]$;
+
+\item[$p$] is the parameter characterising the distribution of
+  uncertainty of $\pi$. It is assumed that its distribution, $[p]$, is
+  known.
+\end{description} 
+
+A two-dimensional Monte-Carlo simulation provides a bundle of $N_{u}$
+distributions $[Y \mid \pi=\pi_{i}]$ where $\pi_{i}, i=\{1, \ldots ,
+N_{u}\}$ are independent random draws from $[\pi \mid p]$, this later
+distribution characterising the uncertainty distribution of $\pi$.
 
 \texttt{mc2d} is a set of R functions
 that will help to implement such two-dimensional Monte-Carlo simulations.
@@ -228,7 +267,7 @@ dimensional Monte-Carlo simulation, with 1,001 iterations. Using the
 
 <<sh0, echo=false>>=
 set.seed(666)
-options("width"=100,"digits"=3)
+options("width"=90,"digits"=3)
 @
 
 %true
@@ -333,9 +372,9 @@ interval of {[}0.191, 0.0730{]}.
 A typical session of R using \texttt{mc2d} is as follows:
 \begin{itemize}
 \item From data, expert knowledge, \emph{etc.} an empirical or parametric
-distribution is chosen for each parent parameter. For developing
-a parametric distribution from data, the \texttt{fitdistrplus}
-package is a convenient way;
+distribution is chosen for each parent parameter. The \texttt{fitdistrplus}
+package is a convenient tool for assessing
+a parametric distribution from data;
 \item For each parameter, an \texttt{mcnode} object is constructed (key
 functions: \texttt{mcdata, mcstoc}); 
 \item Various \texttt{mcnode} objects are grouped into an \texttt{mc} object
@@ -364,7 +403,7 @@ An \texttt{mcnode} object is the basic element of an \texttt{mc} object.
 An \texttt{mcnode}  is associated to one variable while an \texttt{mc} is 
 a set of associated variables.
 
-An \texttt{mcnode} is an array of dimension \texttt{nsv x nsu x nvariates}
+An \texttt{mcnode} is an array of dimension $\left(nsv \times nsu \times nvariates \right)$
 where $nsv$ is the dimension of variability, $nsu$ is the dimension
 of uncertainty and $nvariates$ is the number of variates of the \texttt{mcnode}%
 \footnote{In this section, we will only consider univariate \texttt{mcnode}s,
@@ -382,7 +421,7 @@ and Uncertainty}, is an array of dimension $\left(nsv\times nsu\times nvariates\
 The distribution represents both variability (in the first dimension)
 and uncertainty (in the second dimension) in the parameter. 
 \item Additionally, a \texttt{0} \texttt{mcnode}
-is also defined . \texttt{0} stands
+is also defined. \texttt{0} stands
 for Neither Variability or Uncertainty.
 Such nodes are arrays of dimension $\left(1\times1\times nvariates\right)$.
 No uncertainty or variability is considered for these nodes. A \texttt{0}
@@ -418,8 +457,8 @@ when applied to an existing \texttt{mcnode}.
 
 \subsubsection{\label{sub:mcstoc}The \texttt{\textmd{mcstoc}} function}
 
-The \texttt{mcstoc} function \footnote{from \texttt{stoc}hastic)} is written as
-\footnote{as is standard in R, most arguments have default values and
+The \texttt{mcstoc} function\footnote{from \texttt{stoc}hastic} is written 
+as\footnote{as is standard in R, most arguments have default values and
 will be infrequently modified.}:
 
 %\begin{singlespace}
@@ -706,7 +745,7 @@ finite or infinite .
 %true
 <<sh5, echo=true, eval=true>>=
 cook < 1
-tmp <- log(mcstoc(runif,min=-1,max=1))
+suppressWarnings(tmp <- log(mcstoc(runif,min=-1,max=1)))
 tmp
 is.na(tmp)
 @
@@ -826,25 +865,24 @@ and stores statistics in the uncertainty dimension for further analysis.
 Readers should refer to the corresponding documentation for further
 details. Our example would be written as\footnote{Note that the use of 
 a \texttt{tornado} function in the model should
-be avoided as it slows the \texttt{evalmccut} function considerably.
-The \texttt{tornado} function will be rewritten in the near future
-to improve its performance.}: 
+be avoided as it slows the \texttt{evalmccut} function considerably.}: 
 
 %false
 <<sh12, echo=true, eval=false>>=
 modEC4 <- mcmodelcut({
+## First block: unidimensional nodes
 {cook <- mcstoc(rempiricalD, type = "V", values = c(0, 1/5, 1/50), 
                 prob = c(0.027, 0.373, 0.6))
  serving <- mcstoc(rgamma, type = "V", shape = 3.93, rate = 0.0806)       
  conc <- mcstoc(rnorm, type = "U", mean = 10, sd = 2)       
  r <- mcstoc(runif, type = "U", min = 5e-04, max = 0.0015)     
 }
-## Second block 
+## Second block: two dimensional nodes
 {expo <- conc * cook * serving       
  dose <- mcstoc(rpois, type = "VU", lambda = expo)
  risk <- 1 - (1 - r)^dose
- res <- mc(zero,conc, cook, serving, expo, dose, r, risk)     }
-## Third block 
+ res <- mc(conc, cook, serving, expo, dose, r, risk)     }
+## Third block: Outputs 
 {list(
   sum = summary(res),
   plot = plot(res, draw=FALSE),
@@ -853,7 +891,8 @@ modEC4 <- mcmodelcut({
   et =  sapply(res,sd))
 }
 })
-evalmccut(modEC4, nsv = 10001, nsu = 101, seed = 666)
+res <- evalmccut(modEC4, nsv = 10001, nsu = 101, seed = 666)
+summary(res)
 @
 
 
@@ -863,7 +902,7 @@ evalmccut(modEC4, nsv = 10001, nsu = 101, seed = 666)
 
 As a reminder, the \texttt{print} function provides a very basic summary
 of the \texttt{mc} object. It has a \texttt{digits} argument (default:
-3). Obviously, other more informative functions are provided in the
+3). Other more informative functions are provided in the
 \texttt{mc2d} package. 
 
 
@@ -1055,7 +1094,7 @@ is helpful for extracting an \texttt{mcnode} from an \texttt{mc} object.
 The \texttt{unmc} function removes all attributes, classes, and dimensions
 equal to one, providing a list of vectors, matrices and/or arrays.
 
-Here is a (silly) example building a linear model (in fact 100
+Here is an example building a linear model (in fact 100
 linear models) between the \texttt{risk} and the \texttt{dose} within
 each uncertainty dimension and estimating some statistics for the
 coefficients. This example is here only to illustrate that the entire
@@ -1084,8 +1123,10 @@ mcstoc(runif, nvariates=3, min=c(1,2,3),max=4)
 @
 
 will logically not provide a node with 3 variates, each having a different
-limit. The recycling rule says that \texttt{c(1, 2, 3)} will be used
-in the first dimension, i.e. the variability dimension. Use instead:
+limit. The classical R recycling rule implies that the vector \texttt{c(1, 2, 3)} 
+will be recycled
+in the first dimension, i.e. the variability dimension. 
+Use instead:
 
 %true
 <<sh19quatr, echo=true, eval=true>>=
@@ -1093,6 +1134,7 @@ lim <- mcdata(c(1,2,3), type="0", nvariates=3)
 mcstoc(runif, nvariates=3, min=lim,max=4)
 @
 
+to let \texttt{mc2d} knows that the values should be considered for a multivariate node.
 
 \subsection{Multivariate Nodes for Multivariate Distributions}
 
@@ -1245,7 +1287,8 @@ is highly flexible...
 This example is adapted from \cite{POUILLOT-2004}. The aim is to
 evaluate the risk of infection with \emph{Cryptosporidium} \emph{parvum}
 from consumption of tap water, given that $n$ oocysts /100 l. have
-been observed in a storage reservoir.
+been observed in a storage reservoir. The study is simplified here for illustration
+purpose and the reference for the subject remains \cite{POUILLOT-2004}.  
 
 
 \subsection{Tap Water Consumption Model}
@@ -1274,7 +1317,8 @@ hist(inca, xlab="l/day",freq=FALSE,main="")
 
 %true
 <<Crypto3, echo=true, eval=true>>=
-ndvar(1001);ndunc(101)
+ndvar(1001)
+ndunc(101)
 mcstoc(rempiricalD,type="V",values=inca)
 @
 
@@ -1311,28 +1355,16 @@ Adj_water <- fitdist(inca_non_0,"lnorm",method="mle")
 meanlog <- Adj_water$est[1]
 sdlog   <- Adj_water$est[2]
 summary(Adj_water)
-plot(Adj_water)
 @
 
-%
-\begin{figure}
-\caption{\label{fig:Function-mledist}Graph from the \texttt{fitdist} function. }
-
-
-<<Crypto7, echo=false, eval=true, fig=true>>=
-plot(Adj_water)
-@
-\end{figure}
-
-
-Not so bad (See Figure \ref{fig:Function-mledist}), and better than
+The fit seems correct, and better than the one obtained using
 a gamma distribution (results not shown). We can now rebuild our mixture.
 We could consider uncertainty around the maximum likelihood estimates
 using the \texttt{bootdist} function of the \texttt{fitdistrplus}
 package, using something like:
 
 <<Crypto7bis, echo=true, eval=false>>=
-Boot <- bootdist(Ajust_lnorm, bootmethod="param", niter=ndunc())
+Boot <- bootdist(Adj_water, bootmethod="param", niter=ndunc())
 Mean_conso <- mcdata(Boot$estim$meanlog, type="U")
 Sd_conso <- mcdata(Boot$estim$sdlog, type="U")
 conso1 <- mcstoc(rlnorm, type="VU", meanlog= Mean_conso, sdlog= Sd_conso)
@@ -1365,8 +1397,9 @@ datDR <- list(   dose=c(30,100,300,500,1000,10000,100000,1000000),
                  ni=c(5,8,3,6,2,3,1,1))
 
 estDR <- function(pos,ref){
-   -glm(cbind(ref$ni-pos,pos) ~ ref$dose + 0, 
-    binomial(link="log"))$coefficients}
+   suppressWarnings(
+	-glm(cbind(ref$ni-pos,pos) ~ ref$dose + 0, 
+		binomial(link="log"))$coefficients)}
 
 ml <- 1-exp(-estDR(datDR$pi, datDR) * datDR$dose)
 
@@ -1421,8 +1454,7 @@ Oo <- mcdata(c(0,1,2,5,10,20,50,100,1000),type="0",nvariates=9)
 
 We think and hope that \texttt{mc2d} could help risk assessors
 to constuct and analyse their models, and that it may help in developing
-two-dimensional simulations. Nevertheless, \texttt{mc2d} is still under 
-development: \emph{please report any bugs you get to rpouillot@yahoo.fr.} 
+two-dimensional simulations. \emph{Please report any bugs you get to rpouillot@yahoo.fr.} 
 
 If you would like to improve \texttt{mc2d}, join us at
 

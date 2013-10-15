@@ -74,6 +74,7 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
 #SEE ALSO
 #\code{\link{mcnode}} for a description of \samp{mcnode} object, methods and functions on \samp{mcnode} objects.</>
 #\code{\link{Ops.mcnode}} for operations on \samp{mcnode} objects.
+#\code{\link{rtrunc}} for important warnings on the use of the \samp{trunc} option.
 #EXAMPLE
 #Oldnvar <- ndvar()
 #Oldnunc <- ndunc()
@@ -248,6 +249,10 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
           data[pinf==0 & data > lsup] <- NaN          #ex: rtrunc("lnorm",10,linf=-2,lsup=-1)
           data[psup==1 & data < linf] <- NaN          #ex: rtrunc("unif",10,linf=2,lsup=4,max=1)
           data[is.na(linf) | is.na(lsup)] <- NaN      #ex: rtrunc("norm",10,sd=-2)
+
+          #Two tests for extreme situations. None Catch all possibilities. THe error is first to avoid the warning
+          if(any(data <= linf | data > lsup, na.rm=TRUE)) stop("Error in rtrunc: some values are not in the expected range (maybe due to rounding errors)")
+          if(isTRUE(all.equal(pinf,1)) | isTRUE(all.equal(psup,0)) ) warning("Warning: check the results from rtrunc. It may have reached rounding errors")
           return(data)}
     }
     else func <- function(...) {                      # LHS only
@@ -269,8 +274,8 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
     dimf <- c(1,1,1)
     data <- do.call(func,argsdtest,quote=TRUE)
     l <- length(data)
-    if(l == nvariates) dimf <- c(nsv,nsu,1)                                     # If it returns a vector
-        else if(l == 1) dimf <- c(nsv,nsu,nvariates)                            # if it returns a number
+    if(rtrunc | l == nvariates) dimf <- c(nsv,nsu,1)      # If it returns a vector + special case for rtrunc
+        else if(l == 1) dimf <- c(nsv,nsu,nvariates)      # if it returns a number
           else stop("the function should return a vector of size 1 or nvariates if",nsample,"=1")
         argsd[[nsample]] <- prod(dimf)
         data <- do.call(func, argsd, quote = TRUE)
