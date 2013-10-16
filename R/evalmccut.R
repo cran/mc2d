@@ -105,7 +105,8 @@ evalmccut <- function(model, nsv = ndvar(), nsu = ndunc(), seed = NULL,  ind = "
 #    }
 #})
 #
-#evalmccut(modEC3, nsv = 101, nsu = 101, seed = 666)
+#x <- evalmccut(modEC3, nsv = 101, nsu = 101, seed = 666)
+#summary(x)
 
 #CREATED 08-04-16
 #REVISED 08-04-16

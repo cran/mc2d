@@ -54,8 +54,8 @@ modEC3 <- mcmodelcut({
  }
 })
 
-evalmccut(modEC3, nsv = 101, nsu = 101, seed = 666)
-
+x <- evalmccut(modEC3, nsv = 101, nsu = 101, seed = 666)
+summary(x)
 
 }
 \arguments{

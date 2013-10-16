@@ -5,13 +5,13 @@
 \alias{qpert}
 \alias{rpert}
 \title{
-The Pert Distribution
+The (Modified) PERT Distribution
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the pert distribution with minimum equal to
-\samp{min}, mode equal to \samp{mode} and maximum equal to
-\samp{max}.
+generation for the PERT (\emph{aka} Beta PERT) distribution with
+minimum equals to \samp{min}, mode equals to \samp{mode} and maximum
+equals to \samp{max}.
 }
 \usage{
 dpert(x, min=-1, mode=0, max=1, shape=4, log=FALSE)
@@ -36,28 +36,36 @@ is taken to be the number required.}
 \item{min}{Vector of minima.}
 \item{mode}{Vector of modes.}
 \item{max}{Vector of maxima.}
-\item{shape}{Vector of scaling parameters.}
+\item{shape}{Vector of scaling parameters. Default value: 4.}
 \item{log, log.p}{Logical; if \samp{TRUE}, probabilities \samp{p} are
 given as \samp{log(p)}.}
 \item{lower.tail}{Logical; if \samp{TRUE} (default), probabilities
 are \samp{P[X <= x]}, otherwise, \samp{P[X > x]}.}
 }
 \details{
-The Pert distribution is a special case of the Beta distribution
-specified by the following parameters. Given:
-\deqn{\mu=\frac{min+max+shape\times mode}{shape+2}}{mu = (min + max +
-shape * mode)/(shape + 2)} the values of \eqn{\alpha_{1}}{shape1} and
-\eqn{\alpha_{2}}{shape2} are \deqn{\alpha_{1}=\frac{(\mu-min)(2\times
+The PERT distribution is a beta distribution extended to the domain
+\samp{[min, max]} with mean \deqn{\mu=\frac{min+shape\times
+mode+max}{shape+2}}{mu = (min + shape * mode + max)/(shape + 2)}
+
+The underlying beta distribution is specified by
+\eqn{\alpha_{1}}{shape1} and \eqn{\alpha_{2}}{shape2} defined as
+
+\deqn{\alpha_{1}=\frac{(\mu-min)(2\times
 mode-min-max)}{(mode-\mu)(max-min)}}{shape1=(mu - min)*(2
-mode-min-max)/((mode-mu)*(max - min)}
+mode-min-max)/((mode-mu)*(max - min))}
 
 \deqn{\alpha_{2}=\frac{\alpha_{1}\times
 (max-\mu)}{mu-min}}{shape2=shape1*(max - mu)/(mu - min)}
 
-on the domain \samp{[min, max]}.
-
- If \eqn{\mu=mode}{mu=mode}, \eqn{\alpha_{1}}{shape1} is set to
+If \eqn{\mu=mode}{mu=mode}, \eqn{\alpha_{1}}{shape1} is set to
 \eqn{1+\nu/2}{1+shape/2}.
+
+David Vose (See reference) proposed a modified PERT distribution with a
+shape parameter different from 4. 
+
+The PERT distribution is frequently used (with the \link{triangular}
+distribution) to translate expert estimates of the min, max and mode
+of a random variable in a smooth parametric distribution.
 }
 \value{
 \samp{dpert} gives the density, \samp{ppert} gives the distribution
@@ -65,8 +73,8 @@ function, \samp{qpert} gives the quantile function, and \samp{rpert}
 generates random deviates.
 }
 \references{
-Vose D. Risk Analysis - A Quantitative Guide (John Wiley \& Sons,
-2000).
+Vose D. Risk Analysis - A Quantitative Guide (2nd and 3rd editions,
+John Wiley and Sons, 2000, 2008).  
 }
 \author{
 Regis Pouillot and Matthew Wiener

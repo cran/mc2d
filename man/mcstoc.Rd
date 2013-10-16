@@ -191,5 +191,7 @@ An \samp{mcnode} object.
 methods and functions on \samp{mcnode} objects.
 
  \code{\link{Ops.mcnode}} for operations on \samp{mcnode} objects.
+\code{\link{rtrunc}} for important warnings on the use of the
+\samp{trunc} option.
 }
 \keyword{methods}

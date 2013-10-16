@@ -1,5 +1,18 @@
 === mc2d ===
 
+Version 0.1-14
+=============
+
+BUG FIX
+
+- one bug for multivariates nodes with truncation was corrected
+- addition of tests for truncations (function rtrunc and mcstoc (option trunc=TRUE)). Some unexpected results linked to rounding errors could be obtained for some extreme truncations (see examples). Note that it is not possible to catch all errors and a warning is now provided in the documentation.
+
+IMPROVEMENTS
+
+- pert is definitively better and quicker.
+- the vignettes were revised
+
 Version 0.1-13
 =============
 
