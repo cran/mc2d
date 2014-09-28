@@ -1,5 +1,12 @@
 === mc2d ===
 
+Version 0.1-15
+=============
+
+BUG FIX
+
+- one bug in mcstoc for multivariates nodes with truncation was corrected
+
 Version 0.1-14
 =============
 

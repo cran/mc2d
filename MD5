@@ -1,4 +1,4 @@
-0345c585ce2ccba42139c23c72bb364c *DESCRIPTION
+d493f9348264f0a823e8e1e891ec48c2 *DESCRIPTION
 f47f0f2d06ad314f34494fbefc14bde8 *NAMESPACE
 416948371a45bd6ead6c3ce73688f3fe *R/Ops.mcnode.R
 bd282e586f73fcff599e66da472540c1 *R/bern.R
@@ -23,7 +23,7 @@ e84635f31fbcdfcfab4e4b9dd0a36c68 *R/mcmodel.R
 fcfe0f28bf332a5325e5e029b8850d9c *R/mcmodelcut.R
 5069b93c8b40ac6d72fb858be8b43249 *R/mcprobtree.R
 a9bee60c1cb83cdcaac185a179aaf6f5 *R/mcratio.R
-22c4d6135ccc6e56424e8f4034647523 *R/mcstoc.R
+34c0e7b9138640945dcc497cfe005436 *R/mcstoc.R
 b1a4194b67d9ec84f770da94634bd8ad *R/outm.R
 a684bf714d050ea1708d23f038c9a9b5 *R/pert.R
 e1bb23858ebc6a7789414f4232224c1f *R/plot.mc.R
@@ -44,11 +44,11 @@ a40742f0b5f8d269882119f7fecb77a2 *R/tornadounc.mc.R
 173de8ffa36a0151feda31c5c7c2bca0 *R/tornadounc.mccut.R
 066ffd0d601b7c157d2827a4e88711b3 *R/triang.R
 2d57f872ea9708dff8fdf4f8d4ff13e3 *R/unmc.R
-5a2d6781b0537cf7b94c6fe75f64d5aa *build/vignette.rds
-56705f4b208777f3a98666e19ba5872e *data/ec.rda
+bcaefcf1116fda416479af60da6e035a *build/vignette.rds
+283ee0530def11404209c4cf9d6fb6eb *data/ec.rda
 441fa92594c1d7c97b2e7a0c2dd7ef53 *data/total.RData
 69de137c6c8689227e528ea3f6f4ce71 *inst/CITATION
-a5dbfbb130c8f53c619f119ec2127082 *inst/NEWS
+bea6f8126ec2980ee9d2307702ddac9c *inst/NEWS
 80ebfd5945826221a7334957b4f43a9d *inst/doc/docmcEnglish.R
 e56160555d52677f9f6ed877406857cc *inst/doc/docmcEnglish.Rnw
 303cd386b8d32a57542de68ba82e933e *inst/doc/docmcEnglish.pdf

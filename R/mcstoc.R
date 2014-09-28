@@ -219,9 +219,14 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
 
     if(largsd != 0){
       argsd <- mapply(LAFUNC, argsd, typemc, SIMPLIFY=FALSE)
-#print(argsd)
+      #print(argsd)
       }
-
+#####################################
+# If lhs or rtrunc, redefine the function to draw random variables 
+#########
+  #keep a copy of original function
+  funcorigin <- func
+  
   if(lhs || rtrunc){                                             #define good function for the random sampling
     distr <- as.character(match.call()$func)                     #retrieve the name of the function
     distr <- substr(distr, 2, 1000)                              #remove the r
@@ -238,14 +243,14 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
           lmax <- max(length(linf),length(lsup))
           if(any(rep(linf, length.out = lmax) >= rep(lsup, length.out = lmax))) stop("linf should be < lsup")  #recycle vectors
           argsd$linf <- argsd$lsup <- argsd[[nsample]] <- NULL
-          
+          #find the p of the limit
           pinf <- as.vector(do.call(pfun,c(list(q=linf),argsd),quote=TRUE))
           psup <- as.vector(do.call(pfun,c(list(q=lsup),argsd),quote=TRUE))
-
+          #sample uniformely between the limits
           if(!lhs) lesp <- runif(nnfin,min=pinf,max=psup)
           else     lesp <- lhs(distr="runif", nsv=dimf[1], nsu=dimf[2], nvariates=dimf[3], min=pinf, max=psup) 
-
-          data <- do.call(qfun,c(list(p=lesp),argsd))
+          #get the q
+          data <- (do.call(qfun,c(list(p=lesp),argsd)))[1:nnfin]
           data[pinf==0 & data > lsup] <- NaN          #ex: rtrunc("lnorm",10,linf=-2,lsup=-1)
           data[psup==1 & data < linf] <- NaN          #ex: rtrunc("unif",10,linf=2,lsup=4,max=1)
           data[is.na(linf) | is.na(lsup)] <- NaN      #ex: rtrunc("norm",10,sd=-2)
@@ -253,29 +258,34 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
           #Two tests for extreme situations. None Catch all possibilities. THe error is first to avoid the warning
           if(any(data <= linf | data > lsup, na.rm=TRUE)) stop("Error in rtrunc: some values are not in the expected range (maybe due to rounding errors)")
           if(isTRUE(all.equal(pinf,1)) | isTRUE(all.equal(psup,0)) ) warning("Warning: check the results from rtrunc. It may have reached rounding errors")
-          return(data)}
-    }
+          return(data)
+       }#end redefinition func
+    } 
     else func <- function(...) {                      # LHS only
           argsd <- list(...)
           argsd[[nsample]] <- NULL
           lesp <- lhs(distr="runif", nsv=dimf[1], nsu=dimf[2], nvariates=dimf[3], min=0, max=1)
           return(do.call(qfun,c(list(p=lesp),argsd)))}
   }
-
-  if(nvariates != 1){                                                 # do a try to test the length if nvariates != 1
+  
+  # do a try to test the length if nvariates != 1
+  if(nvariates != 1){                                                 
     if(largsd != 0) argsdtest <- mapply(function(x,typemc){
                                           if(is.null(typemc)) return(unclass(x))
                                           if(is.matrix(x))    return(x[1,,drop=FALSE])     # mc (they have been unclassed)
                                           return(x[1])}, 
-                            argsd, typemc, SIMPLIFY=FALSE)
+                                        argsd, typemc, SIMPLIFY=FALSE)
       else argsdtest <- vector(mode="list",length=0)
 
     argsdtest[[nsample]] <- 1
+    if(rtrunc) argsdtest$linf <- argsdtest$lsup <- NULL
     dimf <- c(1,1,1)
-    data <- do.call(func,argsdtest,quote=TRUE)
+    data <- do.call(funcorigin,argsdtest,quote=TRUE)
     l <- length(data)
-    if(rtrunc | l == nvariates) dimf <- c(nsv,nsu,1)      # If it returns a vector + special case for rtrunc
-        else if(l == 1) dimf <- c(nsv,nsu,nvariates)      # if it returns a number
+    if(l == nvariates) {
+        if(rtrunc | lhs) stop("mcstoc does not handle rtrunc and lhs for multivariate distributions")
+          dimf <- c(nsv,nsu,1)}      # If it returns a vector 
+     else if(l == 1) dimf <- c(nsv,nsu,nvariates)      # if it returns a number
           else stop("the function should return a vector of size 1 or nvariates if",nsample,"=1")
         argsd[[nsample]] <- prod(dimf)
         data <- do.call(func, argsd, quote = TRUE)
@@ -294,7 +304,7 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
            }
         }
         else data <- array(data, dim = c(nsv, nsu, nvariates))
-      }
+      } #end multivariates
    else{  # univariate
         argsd[[nsample]] <- prod(dimf)
         data <- do.call(func, argsd, quote = TRUE)
