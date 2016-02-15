@@ -1,5 +1,13 @@
 === mc2d ===
 
+Version 0.1-16
+=============
+
+BUG FIX
+
+- one bug in rtriang corrected (returned 1 when min == mode == max)
+- one error in the manual was corrected
+
 Version 0.1-15
 =============
 

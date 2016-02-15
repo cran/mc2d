@@ -25,10 +25,9 @@
 \author{R. POUILLOT, M.-L. DELIGNETTE-MULLER, D.L. KELLY \& J.-B. DENIS}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
-\newpage
 \maketitle
-\newpage
 
 This documentation is intended for readers with:
 \begin{itemize}
@@ -60,7 +59,7 @@ Simulations.
 
 In a previous version, some tools to fit parametric distributions
 to data were included. Because these functions can be useful for other
-purposes, they have been moved to a separate package called \texttt{fitdistrplus}.
+purposes, they have been moved to a separate package called \texttt{fitdistrplus} \cite{FITDISTRPLUS}.
 
 \texttt{mc2d} was built for QRA in the Food Safety domain but it can
 be used in other frameworks. 
@@ -363,8 +362,8 @@ The summary provides estimates of the variability distributions (in
 rows) but with a measure of their uncertainty, linked to the uncertainty
 around \texttt{conc} and \texttt{r}. The estimate of the mean risk
 is now uncertain. The median of the 101 simulations leads to a best
-estimate of 0.0445, with a 95\% credible
-interval of {[}0.191, 0.0730{]}.
+estimate of 0.0457, with a 95\% credible
+interval of {[}0.0238, 0.0794{]}.
 
 
 \section{Basic Principles and Functions}
@@ -372,7 +371,7 @@ interval of {[}0.191, 0.0730{]}.
 A typical session of R using \texttt{mc2d} is as follows:
 \begin{itemize}
 \item From data, expert knowledge, \emph{etc.} an empirical or parametric
-distribution is chosen for each parent parameter. The \texttt{fitdistrplus}
+distribution is chosen for each parent parameter. The \texttt{fitdistrplus} \cite{FITDISTRPLUS}
 package is a convenient tool for assessing
 a parametric distribution from data;
 \item For each parameter, an \texttt{mcnode} object is constructed (key
@@ -1322,7 +1321,7 @@ ndunc(101)
 mcstoc(rempiricalD,type="V",values=inca)
 @
 
-but we will use the \texttt{fitdistrplus}
+but we will use the \texttt{fitdistrplus} \cite{FITDISTRPLUS}
 library. \texttt{inca} includes a lot of \texttt{0} nodes, corresponding
 to days when individuals do not drink tap water (possibly they drink
 bottled water on those days). We could try a mixture of distributions,
@@ -1360,7 +1359,7 @@ summary(Adj_water)
 The fit seems correct, and better than the one obtained using
 a gamma distribution (results not shown). We can now rebuild our mixture.
 We could consider uncertainty around the maximum likelihood estimates
-using the \texttt{bootdist} function of the \texttt{fitdistrplus}
+using the \texttt{bootdist} function of the \texttt{fitdistrplus} \cite{FITDISTRPLUS}
 package, using something like:
 
 <<Crypto7bis, echo=true, eval=false>>=

@@ -176,11 +176,11 @@ Ops.mcnode <- function(e1,e2)
               type2 <- attr(e2,"type")
               if(type1==type2){ 
                 type <- type1 
-                if(any(dim1[1:2] != dim2[1:2])) stop(err)        # 0+0, U+U, V+V, VU + VU, gère les deux premieres dimensions 
+                if(any(dim1[1:2] != dim2[1:2])) stop(err)        # 0+0, U+U, V+V, VU + VU, gere les deux premieres dimensions 
               }                                                                                # pas de pb pour la troisieme (recycle)
         
               else if(type1=="0"){ 
-                type <- type2                                                                    # 0 + others. gère la troisieme dim si necessaire
+                type <- type2                                                                    # 0 + others. gere la troisieme dim si necessaire
                 if(dim1[3] != 1) e1 <- rep(e1, each=dimf[1]*dimf[2])
                 }
               

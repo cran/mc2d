@@ -98,7 +98,7 @@ qtriang <- function(p, min=-1, mode=0, max=1, lower.tail=TRUE, log.p=FALSE)
 	
 	#if max = min (and then = mode)
 	minmodemax <- (abs(min-max) < (.Machine$double.eps^0.5)) 
-	q[minmodemax] <- 1
+	q <- ifelse(rep(minmodemax, length.out=length(p)), min, q)
 	
 	q[p < 0 | p > 1] <- NaN
 	q[mode < min | max < mode] <- NaN

@@ -126,7 +126,8 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
   q <- q * (max-min) + min
   
   #Very special case min = max = mode
-  q[(abs(min-max)) < (.Machine$double.eps^0.5)] <- 1
+  minmodemax <- (abs(min-max) < (.Machine$double.eps^0.5)) 
+  q <- ifelse(rep(minmodemax, length.out=length(p)), min, q)
   q[p < 0 | p > 1] <- NaN
   q[mode < min | max < mode] <- NaN
   q[shape <= 0] <- NaN
@@ -153,7 +154,10 @@ rpert <- function(n,min=-1,mode=0,max=1,shape=4)
   oldw <- options(warn = -1)
   r <- rbeta(n, shape1=a1, shape2=a2) * (max-min) + min
   options(warn = oldw$warn)
-
+  #Very special case min = max = mode
+  minmodemax <- (abs(min-max) < (.Machine$double.eps^0.5)) 
+  r <- ifelse(rep(minmodemax, length.out=length(r)), min, r)
+  
   if(any(is.na(r))) warning("NaN in rpert")
   return(r)
 }

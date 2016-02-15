@@ -1,5 +1,5 @@
 ### Import
-import(mvtnorm, stats)
+import(stats, grDevices, graphics, utils, mvtnorm)
 
 ### Exports
 export(tornadounc, tornadounc.mc, tornadounc.default, tornadounc.mccut)
