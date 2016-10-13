@@ -1,5 +1,12 @@
 === mc2d ===
 
+Version 0.1-17
+=============
+
+BUG FIX
+
+- one bug in rtriang, rpert, rbetagen corrected (error when the length of the arguments differed)
+
 Version 0.1-16
 =============
 

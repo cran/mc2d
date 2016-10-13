@@ -1,8 +1,8 @@
 Package: mc2d
 Type: Package
 Title: Tools for Two-Dimensional Monte-Carlo Simulations
-Version: 0.1-16
-Date: 2016-02-07
+Version: 0.1-17
+Date: 2016-10-11
 Authors@R: c(person("Regis", "Pouillot", role = c("aut", "cre"), email = "rpouillot@yahoo.fr"),
 			person("Marie-Laure", "Delignette-Muller", role = "ctb", email= "ml.delignette@vetagro-sup.fr"),
 			person("Jean-Baptiste", "Denis", role = "ctb", email = "jbdenis@jouy.inra.fr"))
@@ -17,8 +17,8 @@ Description: A complete framework to build and study Two-Dimensional Monte-Carlo
 License: GPL (>= 2)
 Repository: CRAN
 Repository/R-Forge/Project: riskassessment
-Repository/R-Forge/Revision: 387
-Repository/R-Forge/DateTimeStamp: 2016-02-14 22:03:13
-Date/Publication: 2016-02-15 23:24:11
+Repository/R-Forge/Revision: 493
+Repository/R-Forge/DateTimeStamp: 2016-10-12 02:09:27
+Date/Publication: 2016-10-13 00:18:07
 NeedsCompilation: no
-Packaged: 2016-02-14 22:05:53 UTC; rforge
+Packaged: 2016-10-12 02:20:58 UTC; rforge

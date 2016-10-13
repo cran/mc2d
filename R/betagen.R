@@ -40,7 +40,7 @@ dbetagen <- function(x,shape1,shape2,min=0,max=1,ncp=0,log=FALSE)
   if(length(x) == 0) return(numeric(0))
   ow <- options(warn=-1)
     min <- as.vector(min)
-	max <- as.vector(max)
+	  max <- as.vector(max)
 
   x <- (x - min)/(max - min)
   options(ow)
@@ -90,21 +90,22 @@ qbetagen <- function(p,shape1,shape2,min=0,max=1,ncp=0,lower.tail=TRUE,log.p=FAL
 #--------------------------------------------
 {
   if(length(p) == 0) return(numeric(0))
-    min <- as.vector(min)
-	max <- as.vector(max)
+  lout <- max(length(p),length(shape1),length(shape2),length(max),length(min),length(ncp))
+  min <- rep(as.vector(min),length.out=lout)
+	max <- rep(as.vector(max),length.out=lout)
   ow <- options(warn=-1)
   if(missing(ncp))
-  q <- qbeta(p,shape1=shape1, shape2=shape2, lower.tail=lower.tail, log.p=log.p)
+    q <- qbeta(p,shape1=shape1, shape2=shape2, lower.tail=lower.tail, log.p=log.p)
   else
   {
-  ncp <- as.vector(ncp)
-  q <- qbeta(p,shape1=shape1, shape2=shape2, ncp=ncp, lower.tail=lower.tail, log.p=log.p)
+    ncp <- as.vector(ncp)
+    q <- qbeta(p,shape1=shape1, shape2=shape2, ncp=ncp, lower.tail=lower.tail, log.p=log.p)
   }
   options(ow)
-  q2 <- q * (max-min) + min
-  q2[max < min] <- NaN
-  if(any(is.na(q2))) warning("NaN in qbetagen")
-  return(q2)}
+  q <- q * (max-min) + min
+  q[max < min] <- NaN
+  if(any(is.na(q))) warning("NaN in qbetagen")
+  return(q)}
 
 
 #<<BEGIN>>
@@ -116,19 +117,19 @@ rbetagen <- function(n,shape1,shape2,min=0,max=1,ncp=0)
   if(length(n) == 0 || as.integer(n) == 0) return(numeric(0))
   n <- as.integer(n)
   if(n < 0) stop("integer(n) can not be negative in rbetagen")  
-    min <- as.vector(min)
-	max <- as.vector(max)
+  min <- rep(as.vector(min),length.out=n)
+	max <- rep(as.vector(max),length.out=n)
   ow <- options(warn=-1)
   if(missing(ncp))
-  r <- rbeta(n, shape1=shape1, shape2=shape2)
+    r <- rbeta(n, shape1=shape1, shape2=shape2)
   else
   {
-  ncp <- as.vector(ncp)
-  r <- rbeta(n, shape1=shape1, shape2=shape2, ncp=ncp)
+    ncp <- as.vector(ncp)
+    r <- rbeta(n, shape1=shape1, shape2=shape2, ncp=ncp)
   }
   options(ow)
-  r2 <- r*(max-min) + min
-  r2[max < min] <- NaN
-  if(any(is.na(r2))) warning("NaN in rbetagen")
-  return(r2)
+  r <- r*(max-min) + min
+  r[max < min] <- NaN
+  if(any(is.na(r))) warning("NaN in rbetagen")
+  return(r)
 }

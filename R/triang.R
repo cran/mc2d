@@ -85,41 +85,57 @@ qtriang <- function(p, min=-1, mode=0, max=1, lower.tail=TRUE, log.p=FALSE)
 #ISALIAS dtriang
 #--------------------------------------------
 {
-	if(length(p) == 0) return(numeric(0))
-	min <- as.vector(min)
-	mode <- as.vector(mode)
-	max <- as.vector(max)
-    if(log.p) p <- exp(p)
-	if(!lower.tail) p <- 1-p
-	quel <- p <= (mode-min)/(max-min)
-	q <- ifelse(quel,
-              min + sqrt(p*(mode-min)*(max-min)),
-              max - sqrt((1-p)*(max-min)*(max-mode)))
-	
-	#if max = min (and then = mode)
-	minmodemax <- (abs(min-max) < (.Machine$double.eps^0.5)) 
-	q <- ifelse(rep(minmodemax, length.out=length(p)), min, q)
-	
-	q[p < 0 | p > 1] <- NaN
-	q[mode < min | max < mode] <- NaN
-	if(any(is.na(q))) warning("NaN in qtriang")
-  return(q)}
+  if (length(p) == 0) 
+    return(numeric(0))
+  min <- as.vector(min)
+  mode <- as.vector(mode)
+  max <- as.vector(max)
+  
+  lout <- max(length(p),length(min),length(mode),length(max))
+  min <- rep(min, length.out=lout)
+  mode <- rep(mode, length.out=lout)
+  max <- rep(max,length.out=lout)
+  
+  if (log.p) 
+    p <- exp(p)
+  if (!lower.tail) 
+    p <- 1 - p
+  quel <- p <= (mode - min)/(max - min)
+  q <- ifelse(quel, min + sqrt(p * (mode - min) * (max - min)), 
+              max - sqrt((1 - p) * (max - min) * (max - mode)))
+  minmodemax <- (abs(min - max) < (.Machine$double.eps^0.5))
+  q <- ifelse(minmodemax, min, q)
+  q[p < 0 | p > 1] <- NaN
+  q[mode < min | max < mode] <- NaN
+  if (any(is.na(q))) 
+    warning("NaN in qtriang")
+  return(q)
+}
 
 
 #<<BEGIN>>
 rtriang <- function(n, min=-1, mode=0, max=1)
 #ISALIAS dtriang
 #--------------------------------------------
-{ if(length(n) > 1) n <- length(n)
-  if(length(n) == 0 || as.integer(n) == 0) return(numeric(0))
+{
+  if (length(n) > 1) 
+    n <- length(n)
+  if (length(n) == 0 || as.integer(n) == 0) 
+    return(numeric(0))
   n <- as.integer(n)
-  if(n < 0) stop("integer(n) can not be negative in rtriang")
+  if (n < 0) 
+    stop("integer(n) can not be negative in rtriang")
+  
   U <- runif(n)
-  ow <- options(warn=-1)
-  q <- qtriang(U,	min=min,
-					mode=mode,
-					max=max, lower.tail = TRUE, log.p = FALSE)
+  ow <- options(warn = -1)
+  q <- qtriang(U, 
+               min = rep(as.vector(min),length.out=n), 
+               mode = rep(as.vector(mode),length.out=n),
+               max = rep(as.vector(max),length.out=n),
+               lower.tail = TRUE, 
+               log.p = FALSE)
   options(ow)
-  if(any(is.na(q))) warning("NaN in rtriang")
-   
-  return(q)}
+  if (any(is.na(q))) 
+    warning("NaN in rtriang")
+  return(q)
+}

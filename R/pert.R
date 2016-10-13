@@ -107,57 +107,65 @@ qpert <- function(p,min=-1,mode=0,max=1,shape=4,lower.tail=TRUE,log.p=FALSE)
 #ISALIAS dpert
 #--------------------------------------------
 {
-  if(length(p) == 0) return(numeric(0))
-	
-  min <- as.vector(min)
-	mode <- as.vector(mode)
-	max <- as.vector(max)
-	shape <- as.vector(shape)
-  
-  if(log.p) p <- exp(p)
-  if(!lower.tail) p <- 1 - p
-	
-  a1 <- 1+shape*(mode-min)/(max-min)	
-  a2 <- 1+shape*(max-mode)/(max-min)
-  
-  oldw <- options(warn = -1)
-  q <- qbeta(p, shape1=a1, shape2=a2)
-  options(warn = oldw$warn)
-  q <- q * (max-min) + min
-  
-  #Very special case min = max = mode
-  minmodemax <- (abs(min-max) < (.Machine$double.eps^0.5)) 
-  q <- ifelse(rep(minmodemax, length.out=length(p)), min, q)
-  q[p < 0 | p > 1] <- NaN
-  q[mode < min | max < mode] <- NaN
-  q[shape <= 0] <- NaN
+    if (length(p) == 0) 
+      return(numeric(0))
+    min <- as.vector(min)
+    mode <- as.vector(mode)
+    max <- as.vector(max)
+    shape <- as.vector(shape)
+    
+    lout <- max(length(p),length(min),length(mode),length(max),length(shape))
+    min <- rep(min, length.out=lout)
+    mode <- rep(mode, length.out=lout)
+    max <- rep(max, length.out=lout)
+    shape <- rep(shape, length.out=lout)
+    
+    if (log.p) 
+      p <- exp(p)
+    if (!lower.tail) 
+      p <- 1 - p
+    a1 <- 1 + shape * (mode - min)/(max - min)
+    a2 <- 1 + shape * (max - mode)/(max - min)
+    oldw <- options(warn = -1)
+    q <- qbeta(p, shape1 = a1, shape2 = a2)
+    options(warn = oldw$warn)
+    q <- q * (max - min) + min
+    minmodemax <- (abs(min - max) < (.Machine$double.eps^0.5))
+    q <- ifelse(minmodemax, min, q)
+    q[p < 0 | p > 1] <- NaN
+    q[mode < min | max < mode] <- NaN
+    q[shape <= 0] <- NaN
+    if (any(is.na(q))) 
+      warning("NaN in qpert")
+    return(q)
+  }
 
-  if(any(is.na(q))) warning("NaN in qpert")
-  return(q)}
 
 
 #<<BEGIN>>
 rpert <- function(n,min=-1,mode=0,max=1,shape=4)
 #ISALIAS dpert
 #--------------------------------------------
-{ if(n < 0) stop("integer(n) can not be negative in rpert")
-  #other pathologic cases for n treated in rbeta
+{
+  if (length(n) > 1) 
+    n <- length(n)
+  if (length(n) == 0 || as.integer(n) == 0) 
+    return(numeric(0))
+  n <- as.integer(n)
   
-  min <- as.vector(min)
-  mode <- as.vector(mode)
-  max <- as.vector(max)
-  shape <- as.vector(shape)
+  min <- rep(as.vector(min),length.out=n)
+  mode <- rep(as.vector(mode),length.out=n)
+  max <- rep(as.vector(max),length.out=n)
+  shape <- rep(as.vector(shape),length.out=n)
   
-  a1 <- 1+shape*(mode-min)/(max-min)  
-  a2 <- 1+shape*(max-mode)/(max-min)
-  
+  a1 <- 1 + shape * (mode - min)/(max - min)
+  a2 <- 1 + shape * (max - mode)/(max - min)
   oldw <- options(warn = -1)
-  r <- rbeta(n, shape1=a1, shape2=a2) * (max-min) + min
+  r <- rbeta(n, shape1 = a1, shape2 = a2) * (max - min) + min
   options(warn = oldw$warn)
-  #Very special case min = max = mode
-  minmodemax <- (abs(min-max) < (.Machine$double.eps^0.5)) 
-  r <- ifelse(rep(minmodemax, length.out=length(r)), min, r)
-  
-  if(any(is.na(r))) warning("NaN in rpert")
+  minmodemax <- (abs(min - max) < (.Machine$double.eps^0.5))
+  r <- ifelse(minmodemax, min, r)
+  if (any(is.na(r))) 
+    warning("NaN in rpert")
   return(r)
 }
