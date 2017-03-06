@@ -1,5 +1,12 @@
 === mc2d ===
 
+Version 0.1-18
+=============
+
+BUG FIX
+
+- potential bugs linked to the default limit of 60 characters in the deparse function. Let to errors in hist, plot, converg, ... 
+
 Version 0.1-17
 =============
 

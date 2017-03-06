@@ -15,7 +15,7 @@ mcmodelcut <- function(x, is.expr=FALSE)
   cat(deparse(x[[1]][[2]]),sep="\n")
 
   last <- x[[1]][[3]][[length(x[[1]][[3]])]][[3]]
-  lastcall1 <- substr(deparse(last,width.cutoff = 500), 1, 3)
+  lastcall1 <- substr(deparse(last,nlines=1), 1, 3)
   if (lastcall1 != "mc(") warning("The last call should be 'mymc <- mc(...)'")
 
   nom <- as.character(x[[1]][[3]][[length(x[[1]][[3]])]][[2]])                  # name of the mc object in the third block

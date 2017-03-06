@@ -83,7 +83,7 @@ hist.mc <- function(x, griddim = NULL, xlab = names(x),ylab = "Frequency", main 
 hist.mcnode <- function(x, ...)
 #ISALIAS hist.mc
 #--------------------------------------------
-{ nom <- deparse(substitute(x))
+{ nom <- deparse(substitute(x), width.cutoff = 500L, nlines=1)
   x <- list(x)
   names(x) <- nom
   hist.mc(x, ...)}

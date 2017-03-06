@@ -42,7 +42,7 @@ mcmodel <- function(x, is.expr=FALSE)
   if(!is.expression(x)) stop("x can not be evaluate as an expression")
 
     last <- x[[1]][length(x[[1]])]
-    lastcall1 <- substr(deparse(last,width.cutoff = 500), 1, 3)
+    lastcall1 <- substr(deparse(last, nlines=1), 1, 3)
     if (lastcall1 != "mc(") warning("The last call should be 'mc(...)'")
     class(x) <- "mcmodel"
     return(x)

@@ -141,7 +141,7 @@ plot.mc <- function(x, prec=0.001, stat = c("median","mean"), lim = c(0.025, 0.2
 plot.mcnode <- function(x, ...)
 #ISALIAS plot.mc
 #--------------------------------------------
-{ nom <- deparse(substitute(x))
+{ nom <- deparse(substitute(x), width.cutoff = 500L, nlines=1)
   x <- list(x)
   names(x) <- nom
   class(x) <- "mc"

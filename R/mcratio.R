@@ -40,7 +40,7 @@ mcratio <- function(x, pcentral = .5, pvar = .975, punc = .975, na.rm=FALSE)
 
 {
   if(inherits(x,"mcnode")) {
-    nom <- deparse(substitute(x))
+    nom <- deparse(substitute(x), width.cutoff = 500L, nlines=1)
     x <- list(x)
     names(x) <- nom}
   

@@ -54,7 +54,7 @@ converg <- function(x, node=length(x), margin=c("var","unc"), nvariates=1, iter=
      if(is.numeric(node)) node <- names(x)[node]
 	   if(!(node %in% names(x)))	stop("node is not a valid value")
      x <- x[[node]]}  # selection of the node
-  else node <-  deparse(substitute(x)) # for mcnode
+  else node <-  deparse(substitute(x), width.cutoff = 500L, nlines=1) # for mcnode
 
 cat("Convergence for ",node,", variates: ", nvariates,"\n",sep="")
 

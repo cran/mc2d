@@ -110,7 +110,7 @@ quantile.mc <- function(x, probs = seq(0, 1, 0.01), lim=c(0.025,0.975), na.rm=TR
 quantile.mcnode <- function(x, ...)
 #ISALIAS quantile.mc
 #--------------------------------------------
-{ nom <- deparse(substitute(x))
+{ nom <- deparse(substitute(x),width.cutoff = 500L,nlines=1)
   x <- list(x)
   names(x) <- nom
   quantile.mc(x, ...)}
