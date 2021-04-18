@@ -1,5 +1,4 @@
 ### R code from vignette source 'mc2dLmEnglish.rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: sh0

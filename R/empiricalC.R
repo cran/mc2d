@@ -77,7 +77,7 @@ dempiricalC <- function(x, min, max, values, prob=NULL, log=FALSE)
 		stop("values/prob should be vector(s), matrix(es) of 1 row or matrix(es) of the same number of rows")
 
 	if(any(!is.finite(values)) || any(!is.finite(min)) || any(!is.finite(max)) || any(!is.finite(prob))) stop("values, prob, min and ax should be finite values") 
-	if(any(min > max) || any(min > apply(values,1,min)) || max < apply(values,1,max)) stop("at least one min is not a minimum or max is not a maximum")
+	if(any(min > max) || any(min > apply(values,1,min)) || any(max < apply(values,1,max))) stop("at least one min is not a minimum or max is not a maximum")
 	if(any(prob < 0) || any(apply(prob,1,sum) == 0)) stop("Prob should be non negative and sum(prob) should be != 0")
 
 	onerow <- function(x, min, max, values, prob){
@@ -142,7 +142,7 @@ pempiricalC <- function(q, min, max, values, prob=NULL, lower.tail = TRUE, log.p
 		stop("values/prob should be vector(s), matrix(es) of 1 row or matrix(es) of the same number of rows")
 
 	if(any(!is.finite(values)) || any(!is.finite(min)) || any(!is.finite(max)) || any(!is.finite(prob))) stop("values, prob, min and ax should be finite values") 
-	if(any(min > max) || any(min > apply(values,1,min)) || max < apply(values,1,max)) stop("at least one min is not a minimum or max is not a maximum")
+	if(any(min > max) || any(min > apply(values,1,min)) || any(max < apply(values,1,max))) stop("at least one min is not a minimum or max is not a maximum")
 	if(any(prob < 0) || any(apply(prob,1,sum) == 0)) stop("Prob should be non negative and sum(prob) should be != 0")
 
   onerow <- function(q,min,max,values,prob){
@@ -216,7 +216,7 @@ qempiricalC <- function(p, min, max, values, prob=NULL, lower.tail = TRUE, log.p
 		stop("values/prob should be vector(s), matrix(es) of 1 row or matrix(es) of the same number of rows")
 
 	if(any(!is.finite(values)) || any(!is.finite(min)) || any(!is.finite(max)) || any(!is.finite(prob))) stop("values, prob, min and ax should be finite values") 
-	if(any(min > max) || any(min > apply(values,1,min)) || max < apply(values,1,max)) stop("at least one min is not a minimum or max is not a maximum")
+	if(any(min > max) || any(min > apply(values,1,min)) || any(max < apply(values,1,max))) stop("at least one min is not a minimum or max is not a maximum")
 	if(any(prob < 0) || any(apply(prob,1,sum) == 0)) stop("Prob should be non negative and sum(prob) should be != 0")
 
 	onerow <- function(p, min, max, values, prob){ 

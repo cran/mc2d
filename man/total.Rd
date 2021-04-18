@@ -43,7 +43,7 @@ have been built using the following code:
 
 \code{total <- mc(x0,xV,xU,xVU,x0M,xVM,xUM,xVUM,xVUM2,xVUM3)}
 }
-\usage{total}
+\usage{data(total)}
 \format{
   Some \samp{mcnode} objects and one \samp{mc} object.
 }

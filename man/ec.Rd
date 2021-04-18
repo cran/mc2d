@@ -39,7 +39,7 @@ of the dose response are uncertain.
 \code{r <- runif(n ,min=0.0005,max=0.0015)}
   
 }
-\usage{ec}
+\usage{data(ec)}
 \format{
   A list of two expression to be passed in \code{mcmodel}
 }

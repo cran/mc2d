@@ -159,7 +159,8 @@ mcstoc <- function(func=runif, type=c("V","U","VU","0"), ..., nsv=ndvar(), nsu=n
     func <- match.fun(func)
     if(!is.null(seed)) set.seed(seed)
 
-    if(!is.character(outm)  || (outm != "none" && outm != "each" && !all(sapply(outm,exists,mode="function"))))
+    if(!is.character(outm)  || 
+       !(all(outm %in% c("none","each"))) && !all(sapply(outm, exists, mode="function")))
       stop("outm should be 'none','each' or a vector of name(s) of valid function(s)")
 
     type <- match.arg(type)

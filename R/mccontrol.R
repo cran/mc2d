@@ -1,3 +1,5 @@
+.pkgglobalenv <- new.env(parent=emptyenv())
+
 #<<BEGIN>>
 ndvar <- function(n)
 #NAME mc.control
@@ -29,15 +31,15 @@ ndvar <- function(n)
 #CREATED 08-01-25
 #--------------------------------------------
 {
-  if(!exists("mc.control", envir=.BaseNamespaceEnv))
-    assign("mc.control",list(nsv=1001,nsu=101),envir=.BaseNamespaceEnv )
-  x <- get("mc.control", envir=.BaseNamespaceEnv)
+  if(!exists("mc.control", envir=.pkgglobalenv))
+    assign("mc.control",list(nsv=1001,nsu=101),envir=.pkgglobalenv )
+  x <- get("mc.control", envir=.pkgglobalenv)
    if(!is.list(x) || is.null(x$nsv) || is.null(x$nsu))
-    assign("mc.control",list(nsv=1001,nsu=101),envir=.BaseNamespaceEnv )
+    assign("mc.control",list(nsv=1001,nsu=101),envir=.pkgglobalenv )
   if(!missing(n)){
     if (n > 0) x$nsv <- ceiling(n)
         else stop("Invalid n")
-    assign("mc.control",x, envir=.BaseNamespaceEnv)}
+    assign("mc.control",x, envir=.pkgglobalenv)}
   return(x$nsv)}
 
 #<<BEGIN>>
@@ -45,13 +47,13 @@ ndunc <- function(n)
 #ISALIAS ndvar
 #--------------------------------------------
 {
-  if(!exists("mc.control", envir=.BaseNamespaceEnv))
-    assign("mc.control",list(nsv=1001,nsu=101),envir=.BaseNamespaceEnv )
-  x <- get("mc.control", envir=.BaseNamespaceEnv)
+  if(!exists("mc.control", envir=.pkgglobalenv))
+    assign("mc.control",list(nsv=1001,nsu=101),envir=.pkgglobalenv )
+  x <- get("mc.control", envir=.pkgglobalenv)
    if(!is.list(x) || is.null(x$nsv) || is.null(x$nsu))
-    assign("mc.control",list(nsv=1001,nsu=101),envir=.BaseNamespaceEnv )
+    assign("mc.control",list(nsv=1001,nsu=101),envir=.pkgglobalenv )
   if(!missing(n)){
     if (n > 0) x$nsu <- ceiling(n)
         else stop("Invalid n")
-    assign("mc.control",x, envir=.BaseNamespaceEnv)}
+    assign("mc.control",x, envir=.pkgglobalenv)}
   return(x$nsu)}

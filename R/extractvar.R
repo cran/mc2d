@@ -29,7 +29,7 @@ extractvar <- function(x, which = 1)
 {
   if(missing(x) || !inherits(x,"mcnode")) stop("extractvar need a mcnode object")
   dimm <- dim(x)
-  if(any(which > dimm[3]) || (which < 1)) stop("Incorrect value of which")
+  if(any(which > dimm[3]) || any(which < 1)) stop("Incorrect value of which")
   x <- mcdata(x[,,which],type=typemcnode(x),nsv=dimm[1],nsu=dimm[2],nvariates=length(which))
   return(x)
 }
