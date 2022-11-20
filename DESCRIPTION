@@ -1,8 +1,8 @@
 Package: mc2d
 Type: Package
 Title: Tools for Two-Dimensional Monte-Carlo Simulations
-Version: 0.1-21
-Date: 2021-07-05
+Version: 0.1-22
+Date: 2022-11-18
 Authors@R: c(person("Regis", "Pouillot", role = c("aut", "cre"), email = "rpouillot@yahoo.fr"),
 			person("Marie-Laure", "Delignette-Muller", role = "ctb", email= "ml.delignette@vetagro-sup.fr"),
 			person("Jean-Baptiste", "Denis", role = "ctb", email = "jbdenis@jouy.inra.fr"))
@@ -17,6 +17,6 @@ Description: A complete framework to build and study Two-Dimensional Monte-Carlo
 License: GPL (>= 2)
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-07-05 08:46:37 UTC; PouillotRegis
+Packaged: 2022-11-20 18:08:36 UTC; rpoui
 Repository: CRAN
-Date/Publication: 2021-07-05 11:20:02 UTC
+Date/Publication: 2022-11-20 20:00:02 UTC

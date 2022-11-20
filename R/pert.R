@@ -171,7 +171,7 @@ rpert <- function(n,min=-1,mode=0,max=1,shape=4, mean=0){
   shape <- rep(as.vector(shape),length.out=n)
   
   if (missing(mode)){
-    mean <- rep(as.vector(mode),length.out=n)
+    mean <- rep(as.vector(mean),length.out=n)
     mode <- ((shape+2)*mean - min - max) / shape
     if(any(mode < min | mode > max)) warning("Some values of mean lead to mode < min or mode > max.")
     
